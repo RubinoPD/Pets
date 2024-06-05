@@ -73,15 +73,15 @@ namespace PETS
                     string query = "SELECT login_id FROM login WHERE email_address=@username AND password=@password;";
 
                     MySqlCommand cmd = new MySqlCommand(query, connection);
-                    cmd.Parameters.AddWithValue("@username", usernameTextBox);
-                    cmd.Parameters.AddWithValue("@password", passwordTextBox);
+                    cmd.Parameters.AddWithValue("@username", usernameTextBox.Text);
+                    cmd.Parameters.AddWithValue("@password", passwordTextBox.Text);
 
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
                         if (reader.HasRows)
                         {
                             reader.Read();
-                            string loginID = reader.GetString(0);
+                            int loginID = reader.GetInt32(0);
                             reader.Close();
 
                             //Check if the user has admin permissions
