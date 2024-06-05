@@ -105,7 +105,7 @@ namespace PETS
                                     reader2.Close();
 
                                     //Open adminPage.xaml page
-                                    adminPage adminPage = new adminPage();
+                                    adminPage adminPage = new adminPage(admin);
                                     adminPage.Show();
                                     this.Hide();
                                     //this.NavigationService.Navigate(adminPage);

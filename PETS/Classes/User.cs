@@ -9,17 +9,16 @@ namespace PETS.Classes
     public abstract class User
     {
 
-        public string firstName { get; set; }
-        public string lastName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public int Login {  get; set; }
         
 
-        public User (string firstName, string lastName, int login)
+        public User (string firstName, string lastName, int login_id)
         {
-            this.firstName = firstName;
-            this.lastName = lastName;
-            Login = login;
-            // Address = address;
+            this.FirstName = firstName;
+            this.LastName = lastName;
+            Login = login_id;
         }
     }
 }
