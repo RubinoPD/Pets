@@ -40,3 +40,6 @@ C:\Users\Robertas\Desktop\duomenu baziu praktika\PETS\PETS\bin\Debug\System.Nume
 C:\Users\Robertas\Desktop\duomenu baziu praktika\PETS\PETS\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 C:\Users\Robertas\Desktop\duomenu baziu praktika\PETS\PETS\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\Robertas\Desktop\duomenu baziu praktika\PETS\PETS\obj\Debug\PETS.csproj.CopyComplete
+C:\Users\Robertas\Desktop\duomenu baziu praktika\PETS\PETS\obj\Debug\PETS.UserPages.adminPage.resources
+C:\Users\Robertas\Desktop\duomenu baziu praktika\PETS\PETS\obj\Debug\PETS.UserPages.supervisorPage.resources
+C:\Users\Robertas\Desktop\duomenu baziu praktika\PETS\PETS\obj\Debug\PETS.UserPages.userPage.resources

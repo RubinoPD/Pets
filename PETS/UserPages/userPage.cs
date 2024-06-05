@@ -11,11 +11,11 @@ using PETS.Classes;
 
 namespace PETS.UserPages
 {
-    public partial class supervisorPage : Form
+    public partial class userPage : Form
     {
 
-        private Supervisor _userInfo;
-        public supervisorPage(Supervisor userInfo)
+        private RegularUser _userInfo;
+        public userPage(RegularUser userInfo)
         {
             InitializeComponent();
             _userInfo = userInfo;
@@ -24,10 +24,10 @@ namespace PETS.UserPages
 
         private void DisplayUserInfo()
         {
-            supervisorLabel.Text = _userInfo.FirstName;
+            userLabel.Text = _userInfo.FirstName;
         }
 
-        private void supervisorPage_Load(object sender, EventArgs e)
+        private void userPage_Load(object sender, EventArgs e)
         {
 
         }

@@ -104,7 +104,7 @@ namespace PETS
                                     Admin admin = new Admin(firstName, lastName, login, adminID, roleID);
                                     reader2.Close();
 
-                                    //Open adminPage.xaml page
+                                    //Open adminPage
                                     adminPage adminPage = new adminPage(admin);
                                     adminPage.Show();
                                     this.Hide();
@@ -114,8 +114,8 @@ namespace PETS
                                 else
                                 {
                                     reader2.Close();
-                                    //Check if the user has manager permissions
-                                    query = "SELECT * FROM manager WHERE Login = @loginID;";
+                                    //Check if the user has supervisor permissions
+                                    query = "SELECT * FROM supervisor WHERE login_id = @loginID;";
                                     cmd = new MySqlCommand(query, connection);
                                     cmd.Parameters.AddWithValue("@loginID", loginID);
 
@@ -125,23 +125,26 @@ namespace PETS
                                         {
                                             reader3.Read();
                                             // Retrieve values from columns
-                                            int managerID = reader3.GetInt32(reader3.GetOrdinal("ManagerID"));
-                                            string firstName = reader3.GetString(reader3.GetOrdinal("FirstName"));
-                                            string lastName = reader3.GetString(reader3.GetOrdinal("LastName"));
-                                            int roleID = reader3.GetInt32(reader3.GetOrdinal("RoleID"));
-                                            int login = reader3.GetInt32(reader3.GetOrdinal("Login"));
-                                            Manager manager = new Manager(firstName, lastName, roleID, login, managerID);
+                                            int supervisorID = reader3.GetInt32(reader3.GetOrdinal("supervisor_id"));
+                                            string firstName = reader3.GetString(reader3.GetOrdinal("name"));
+                                            string lastName = reader3.GetString(reader3.GetOrdinal("surname"));
+                                            int phoneNmb = reader3.GetInt32(reader3.GetOrdinal("phone_nmb"));
+                                            int roleID = reader3.GetInt32(reader3.GetOrdinal("role_id"));
+                                            int login_id = reader3.GetInt32(reader3.GetOrdinal("login_id"));
+                                            Supervisor supervisor = new Supervisor(firstName, lastName, login_id, supervisorID, roleID, phoneNmb);
 
                                             reader3.Close();
-                                            //Open managerPage.xaml page
-                                            ManagerPage managerPage = new ManagerPage(manager);
-                                            this.NavigationService.Navigate(managerPage);
+                                            //Open supervisorPage page
+                                            supervisorPage supervisorPage = new supervisorPage(supervisor);
+                                            supervisorPage.Show();
+                                            this.Hide();
+
                                         }
                                         else
                                         {
                                             reader3.Close();
                                             //Check if it is a simple user
-                                            query = "SELECT * FROM person WHERE Login = @loginID;";
+                                            query = "SELECT * FROM user WHERE login_id = @loginID;";
                                             cmd = new MySqlCommand(query, connection);
                                             cmd.Parameters.AddWithValue("@loginID", loginID);
 
@@ -151,21 +154,24 @@ namespace PETS
                                                 {
                                                     reader4.Read();
                                                     // Retrieve values from columns
-                                                    int personID = reader4.GetInt32(reader4.GetOrdinal("PersonID"));
-                                                    string firstName = reader4.GetString(reader4.GetOrdinal("FirstName"));
-                                                    string lastName = reader4.GetString(reader4.GetOrdinal("LastName"));
-                                                    int roleID = reader4.GetInt32(reader4.GetOrdinal("RoleID"));
-                                                    int login = reader4.GetInt32(reader4.GetOrdinal("Login"));
-                                                    int unitID = reader4.GetInt32(reader4.GetOrdinal("UnitID"));
-                                                    int contactID = reader4.GetInt32(reader4.GetOrdinal("ContactID"));
+                                                    int userID = reader4.GetInt32(reader4.GetOrdinal("user_id"));
+                                                    string firstName = reader4.GetString(reader4.GetOrdinal("vardas"));
+                                                    string lastName = reader4.GetString(reader4.GetOrdinal("pavarde"));
+                                                    string email = reader4.GetString(reader4.GetOrdinal("el_pastas"));
+                                                    //int roleID = reader4.GetInt32(reader4.GetOrdinal("role_id"));
+                                                    int login_id = reader4.GetInt32(reader4.GetOrdinal("login_id"));
+                                                    int addressID = reader4.GetInt32(reader4.GetOrdinal("adreso_id"));
+                                                    int petID = reader4.GetInt32(reader4.GetOrdinal("gyvuno_id"));
 
-                                                    person person = new person(firstName, lastName, roleID, login, personID, unitID, contactID);
+                                                    RegularUser user = new RegularUser(firstName, lastName, login_id, petID, userID, email, addressID);
 
                                                     reader4.Close();
                                                     //Open UserPage.xaml page
-                                                    UserPage userPage = new UserPage(person);
+                                                    userPage userPage = new userPage(user);
+                                                    userPage.Show();
+                                                    this.Hide();
 
-                                                    this.NavigationService.Navigate(userPage);
+                                                    //this.NavigationService.Navigate(userPage);
                                                 }
                                                 else
                                                 {
@@ -187,13 +193,9 @@ namespace PETS
                 }
                 catch (MySqlException ex)
                 {
-                    MessageBox.Show("Database connection failed: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Database connection failed: " + ex.Message, "Error", MessageBoxButtons.OK);
                 }
             }
-                    }
-                }
-            }
-
         }
     }
 }
