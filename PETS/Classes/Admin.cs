@@ -13,8 +13,8 @@ namespace PETS.Classes
         public int RoleID { get; set; }
 
         // Constructor for Admin class
-        public Admin(string firstName, string lastName, int login, string address, int adminID, int roleID)
-            : base(firstName, lastName, login, address) // Call to base class constructor
+        public Admin(string firstName, string lastName, int login, int adminID, int roleID)
+            : base(firstName, lastName, login) // Call to base class constructor
         {
             this.AdminID = adminID;
             this.RoleID = roleID;

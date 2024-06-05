@@ -12,14 +12,14 @@ namespace PETS.Classes
         public string firstName { get; set; }
         public string lastName { get; set; }
         public int Login {  get; set; }
-        public string Address {  get; set; }
+        
 
-        public User (string firstName, string lastName, int login, string address)
+        public User (string firstName, string lastName, int login)
         {
             this.firstName = firstName;
             this.lastName = lastName;
             Login = login;
-            Address = address;
+            // Address = address;
         }
     }
 }

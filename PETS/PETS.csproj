@@ -113,6 +113,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Admin.cs" />
+    <Compile Include="Classes\Supervisor.cs" />
+    <Compile Include="Classes\User.cs" />
     <Compile Include="Classes\DBConnection.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

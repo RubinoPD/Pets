@@ -14,13 +14,16 @@ namespace PETS.Classes
         public int PhoneNumber { get; set; }
         public string Password {  get; set; }
 
+        public string Address { get; set; }
 
-        public Supervisor (string firstName, string lastName, int login, string address, int supervisorID, int roleID, int phoneNumber, string password) : base (firstName, lastName, login, address)
+
+        public Supervisor (string firstName, string lastName, int login, string address, int supervisorID, int roleID, int phoneNumber, string password) : base (firstName, lastName, login)
         {
             supervisorID = supervisorID;
             PhoneNumber = phoneNumber;
             Password = password;
             RoleID = roleID;
+            Address = address;
         }
 
     }
