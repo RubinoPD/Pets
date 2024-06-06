@@ -91,6 +91,39 @@ namespace PETS.Classes
             }
             return pet;
         }
+
+        public static Chip GetChip(int chipID)
+        {
+            Chip chip = null;
+            string connectionString = GetConnectionString();
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "SELECT chip_id, klinikos_id, vet_id, data FROM cipas WHERE chip_id=@chipID;";
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@chipID", chipID);
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        reader.Read();
+                        int chip_id = reader.GetInt32(reader.GetOrdinal("chip_id"));
+                        int clinicID = reader.GetInt32(reader.GetOrdinal("klinikos_id"));
+                        int vetID = reader.GetInt32(reader.GetOrdinal("vet_id"));
+                        DateTime date = reader.GetDateTime(reader.GetOrdinal("data"));
+                        
+                        chip = new Chip(chip_id, clinicID, vetID, date);
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show("Database connection failed: " + ex.Message, "Error", MessageBoxButtons.OK);
+                }
+            }
+            return chip;
+        }
     }
 
     public class Address
@@ -130,6 +163,22 @@ namespace PETS.Classes
             UserID = userID;
             VaccineID = vaccineID;
             Name = name;
+        }
+    }
+
+    public class Chip
+    {
+        public int ChipID { get; set; }
+        public int ClinicID { get; set; }
+        public int VetID { get; set; }
+        public DateTime Date { get; set; }
+
+        public Chip(int chipID, int clinicID, int vetID, DateTime date)
+        {
+            ChipID = chipID;
+            ClinicID = clinicID;
+            VetID = vetID;
+            Date = date;
         }
     }
 }

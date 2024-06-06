@@ -17,6 +17,7 @@ namespace PETS.UserPages
         private RegularUser _userInfo;
         private Address _address;
         private Pet _pet;
+        private Chip _chip;
         public userPage(RegularUser userInfo)
         {
             InitializeComponent();
@@ -44,15 +45,24 @@ namespace PETS.UserPages
             // Fetch and display pet info
 
             _pet = DBConnection.GetPet(_userInfo.PetsID);
+            _chip = DBConnection.GetChip(_pet.ChipID);
 
             if ( _pet != null )
             {
                 petsNameLabel.Text = $"Jusu gyvuno vardas: {_pet.Name}";
                 petsAgeLabel.Text = $"Jusu gyvuno amzius: {_pet.Age}";
-                petsChipLabel.Text = $"Jusu gyvuno cipo data: {_pet.ChipID}"; // reikes pakeisti, kad chipo idejimo data rodytu
+                petsChipLabel.Text = $"Jusu gyvuno cipo data: {_chip.Date.ToString("MM/dd/yyyy")}"; // reikes pakeisti, kad chipo idejimo data rodytu
                 petsVaccineDateLabel.Text = $"Paskutines vakcinacijos data: {_pet.VaccineID}"; // reikes isimti data is vakcinacijos table
                 petsNextVaccineDateLabel.Text = $"Kitos vakcinacijos data: {_pet.VaccineID}";
+            } else
+            {
+                petsNameLabel.Text = "Deja, neturite prideto gyvuno";
+                petsAgeLabel.Visible = false;
+                petsChipLabel.Visible = false;
+                petsVaccineDateLabel.Visible = false;
+                petsNextVaccineDateLabel.Visible= false;
             }
+
         }
 
 
