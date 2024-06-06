@@ -54,10 +54,47 @@ namespace PETS.Classes
             }
             return address;
         }
+
+        public static Pet GetPet(int petID)
+        {
+            Pet pet = null;
+            string connectionString = GetConnectionString();
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "SELECT gyvuno_id, gyv_veisle, lytis, amzius, svoris, chip_id, user_id, skiepo_id, vardas FROM gyvunas WHERE gyvuno_id=@petID;";
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@petID", petID);
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        reader.Read();
+                        int pet_id = reader.GetInt32(reader.GetOrdinal("gyvuno_id"));
+                        string breed = reader.GetString(reader.GetOrdinal("gyv_veisle"));
+                        string sex = reader.GetString(reader.GetOrdinal("lytis"));
+                        int age = reader.GetInt32(reader.GetOrdinal("amzius"));
+                        int weight = reader.GetInt32(reader.GetOrdinal("svoris"));
+                        int chipID = reader.GetInt32(reader.GetOrdinal("chip_id"));
+                        int userID = reader.GetInt32(reader.GetOrdinal("user_id"));
+                        int vaccineID = reader.GetInt32(reader.GetOrdinal("skiepo_id"));
+                        string name = reader.GetString(reader.GetOrdinal("vardas"));
+                        pet = new Pet(pet_id, breed, sex, age, weight, chipID, userID, vaccineID, name);
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show("Database connection failed: " + ex.Message, "Error", MessageBoxButtons.OK);
+                }
+            }
+            return pet;
+        }
     }
 
     public class Address
-        {
+    {
             public int AddressID { get; set; }
             public string Street { get; set; }
             public int CityID { get; set; }
@@ -68,6 +105,31 @@ namespace PETS.Classes
                 Street = street;
                 CityID = cityID;
             }
-        }
-
     }
+
+    public class Pet
+    {
+        public int PetID { get; set; }
+        public string Breed { get; set; }
+        public string Sex { get; set; }
+        public int Age { get; set; }
+        public int Weight { get; set; }
+        public int ChipID { get; set; }
+        public int UserID { get; set; }
+        public int VaccineID { get; set; }
+        public string Name { get; set; }
+
+        public Pet (int petID, string breed, string sex, int age, int weight, int chipID, int userID, int vaccineID, string name)
+        {
+            PetID = petID;
+            Breed = breed;
+            Sex = sex;
+            Age = age;
+            Weight = weight;
+            ChipID = chipID;
+            UserID = userID;
+            VaccineID = vaccineID;
+            Name = name;
+        }
+    }
+}
