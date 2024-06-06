@@ -124,6 +124,39 @@ namespace PETS.Classes
             }
             return chip;
         }
+
+        public static Vaccine GetVaccine(int vaccineID)
+        {
+            Vaccine vaccine = null;
+            string connectionString = GetConnectionString();
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "SELECT skiepo_id, pavadinimas, skiepo_data, kitas_skiepas FROM skiepas WHERE skiepo_id=@vaccineID;";
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@vaccineID", vaccineID);
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        reader.Read();
+                        int vaccine_id = reader.GetInt32(reader.GetOrdinal("skiepo_id"));
+                        string name = reader.GetString(reader.GetOrdinal("pavadinimas"));
+                        DateTime vaccineDate = reader.GetDateTime(reader.GetOrdinal("skiepo_data"));
+                        DateTime nextDate = reader.GetDateTime(reader.GetOrdinal("kitas_skiepas"));
+
+                        vaccine = new Vaccine(vaccine_id, name, vaccineDate, nextDate);
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show("Database connection failed: " + ex.Message, "Error", MessageBoxButtons.OK);
+                }
+            }
+            return vaccine;
+        }
     }
 
     public class Address
@@ -179,6 +212,23 @@ namespace PETS.Classes
             ClinicID = clinicID;
             VetID = vetID;
             Date = date;
+        }
+    }
+
+    public class Vaccine
+    {
+        public int VaccineID { get; set; }
+        public string VaccineName { get; set; }
+        public DateTime VaccineDate { get; set; }
+        public DateTime NextVaccineDate { get; set; }
+
+        public Vaccine(int vaccine_id, string vaccine_name, DateTime vaccine_date, DateTime nextVaccine)
+        {
+            VaccineID = vaccine_id;
+            VaccineName = vaccine_name;
+            VaccineDate = vaccine_date;
+            NextVaccineDate = nextVaccine;
+
         }
     }
 }
