@@ -57,9 +57,9 @@
             // 
             this.logoutBtn.AccessibleName = "logoutBtn";
             this.logoutBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.logoutBtn.Location = new System.Drawing.Point(633, 26);
+            this.logoutBtn.Location = new System.Drawing.Point(608, 26);
             this.logoutBtn.Name = "logoutBtn";
-            this.logoutBtn.Size = new System.Drawing.Size(121, 35);
+            this.logoutBtn.Size = new System.Drawing.Size(146, 35);
             this.logoutBtn.TabIndex = 1;
             this.logoutBtn.Text = "Atsijungti";
             this.logoutBtn.UseVisualStyleBackColor = true;
@@ -167,9 +167,9 @@
             // 
             this.userEditBtn.AccessibleName = "userEditBtn";
             this.userEditBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.userEditBtn.Location = new System.Drawing.Point(44, 234);
+            this.userEditBtn.Location = new System.Drawing.Point(30, 235);
             this.userEditBtn.Name = "userEditBtn";
-            this.userEditBtn.Size = new System.Drawing.Size(111, 39);
+            this.userEditBtn.Size = new System.Drawing.Size(156, 39);
             this.userEditBtn.TabIndex = 11;
             this.userEditBtn.Text = "Redaguoti";
             this.userEditBtn.UseVisualStyleBackColor = true;

@@ -15,6 +15,7 @@ namespace PETS.UserPages
     {
 
         private RegularUser _userInfo;
+        private Address _address;
         public userPage(RegularUser userInfo)
         {
             InitializeComponent();
@@ -25,7 +26,21 @@ namespace PETS.UserPages
         private void DisplayUserInfo()
         {
             //userLabel.Text = _userInfo.FirstName;
+            userInformationLabel.Text = "Sveiki prisijunge, " + _userInfo.FirstName + " " + _userInfo.LastName + "!";
+            userEmailLabel.Text = "Jusu pastas: " + _userInfo.Email;
+
+            // Fetch and display user address
+            _address = DBConnection.GetAddress(_userInfo.AddressID);
+
+            if ( _address != null )
+            {
+                userAdressLabel.Text = $"Jusu adresas: {_address.Street}";
+            } else
+            {
+                userAdressLabel.Text = "Adreso neturite";
+            }
         }
+
 
         private void userPage_Load(object sender, EventArgs e)
         {
