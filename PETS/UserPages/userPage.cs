@@ -24,7 +24,7 @@ namespace PETS.UserPages
 
         private void DisplayUserInfo()
         {
-            userLabel.Text = _userInfo.FirstName;
+            //userLabel.Text = _userInfo.FirstName;
         }
 
         private void userPage_Load(object sender, EventArgs e)
