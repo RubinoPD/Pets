@@ -24,7 +24,7 @@ namespace PETS.UserPages
 
         private void DisplayUserInfo()
         {
-            supervisorLabel.Text = _supervisorInfo.FirstName;
+            supervisorLabel.Text = $"Sveiki prisijunge, {_supervisorInfo.FirstName} {_supervisorInfo.LastName}";
         }
 
         private void supervisorPage_Load(object sender, EventArgs e)
