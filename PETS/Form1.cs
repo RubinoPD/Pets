@@ -167,7 +167,7 @@ namespace PETS
 
                                                     reader4.Close();
                                                     //Open UserPage.xaml page
-                                                    userPage userPage = new userPage(user);
+                                                    userPage userPage = new userPage(user, this);
                                                     userPage.Show();
                                                     this.Hide();
 

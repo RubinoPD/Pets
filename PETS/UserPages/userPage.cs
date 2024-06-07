@@ -19,10 +19,12 @@ namespace PETS.UserPages
         private Pet _pet;
         private Chip _chip;
         private Vaccine _vaccine;
-        public userPage(RegularUser userInfo)
+        private Form1 _loginForm;
+        public userPage(RegularUser userInfo, Form1 loginForm)
         {
             InitializeComponent();
             _userInfo = userInfo;
+            _loginForm = loginForm;
             DisplayUserInfo();
         }
 
@@ -78,6 +80,14 @@ namespace PETS.UserPages
             EditUserForm editUserForm = new EditUserForm(_userInfo);
             editUserForm.ShowDialog();
             DisplayUserInfo(); // Refresh the user info after editing
+        }
+
+        private void logoutBtn_Click(object sender, EventArgs e)
+        {
+            // Close the current form and show the login form
+            this.Close();
+            //Form1 loginForm = new Form1();
+            _loginForm.Show();
         }
     }
 }

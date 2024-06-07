@@ -63,6 +63,7 @@
             this.logoutBtn.TabIndex = 1;
             this.logoutBtn.Text = "Atsijungti";
             this.logoutBtn.UseVisualStyleBackColor = true;
+            this.logoutBtn.Click += new System.EventHandler(this.logoutBtn_Click);
             // 
             // petsNameLabel
             // 
