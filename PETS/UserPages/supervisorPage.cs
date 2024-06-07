@@ -14,17 +14,17 @@ namespace PETS.UserPages
     public partial class supervisorPage : Form
     {
 
-        private Supervisor _userInfo;
-        public supervisorPage(Supervisor userInfo)
+        private Supervisor _supervisorInfo;
+        public supervisorPage(Supervisor supervisorInfo)
         {
             InitializeComponent();
-            _userInfo = userInfo;
+            _supervisorInfo = supervisorInfo;
             DisplayUserInfo();
         }
 
         private void DisplayUserInfo()
         {
-            supervisorLabel.Text = _userInfo.FirstName;
+            supervisorLabel.Text = _supervisorInfo.FirstName;
         }
 
         private void supervisorPage_Load(object sender, EventArgs e)

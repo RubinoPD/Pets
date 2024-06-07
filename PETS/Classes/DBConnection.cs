@@ -113,7 +113,7 @@ namespace PETS.Classes
                 try
                 {
                     connection.Open();
-                    string query = "SELECT gyvuno_id, gyv_veisle, lytis, amzius, svoris, chip_id, user_id, skiepo_id, vardas FROM gyvunas WHERE gyvuno_id=@petID;";
+                    string query = "SELECT gyvuno_id, gyv_veisle, lytis, amzius, svoris, chip_id, user_id, skiepo_id, vardas, vet_id FROM gyvunas WHERE gyvuno_id=@petID;";
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("@petID", petID);
 
@@ -130,7 +130,8 @@ namespace PETS.Classes
                         int userID = reader.GetInt32(reader.GetOrdinal("user_id"));
                         int vaccineID = reader.GetInt32(reader.GetOrdinal("skiepo_id"));
                         string name = reader.GetString(reader.GetOrdinal("vardas"));
-                        pet = new Pet(pet_id, breed, sex, age, weight, chipID, userID, vaccineID, name);
+                        int vetID = reader.GetInt32(reader.GetOrdinal("vet_id"));
+                        pet = new Pet(pet_id, breed, sex, age, weight, chipID, userID, vaccineID, name, vetID);
                     }
                 }
                 catch (MySqlException ex)
@@ -206,6 +207,39 @@ namespace PETS.Classes
             }
             return vaccine;
         }
+
+        public static Vet GetVet(int vetID)
+        {
+            Vet vet = null;
+            string connectionString = GetConnectionString();
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "SELECT vet_id, vardas, pavarde, klinikos_id FROM veterinaras WHERE vet_id=@vetID;";
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@vetID", vetID);
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        reader.Read();
+                        int vet_id = reader.GetInt32(reader.GetOrdinal("vet_id"));
+                        string name = reader.GetString(reader.GetOrdinal("vardas"));
+                        string lastName = reader.GetString(reader.GetOrdinal("pavarde"));
+                        int clinicID = reader.GetInt32(reader.GetOrdinal("klinikos_id"));
+
+                        vet = new Vet(vetID, name, lastName, clinicID); 
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show("Database connection failed: " + ex.Message, "Error", MessageBoxButtons.OK);
+                }
+            }
+            return vet;
+        }
     }
 
     public class Address
@@ -233,8 +267,9 @@ namespace PETS.Classes
         public int UserID { get; set; }
         public int VaccineID { get; set; }
         public string Name { get; set; }
+        public int VetID { get; set; }
 
-        public Pet (int petID, string breed, string sex, int age, int weight, int chipID, int userID, int vaccineID, string name)
+        public Pet (int petID, string breed, string sex, int age, int weight, int chipID, int userID, int vaccineID, string name, int vetID)
         {
             PetID = petID;
             Breed = breed;
@@ -245,6 +280,7 @@ namespace PETS.Classes
             UserID = userID;
             VaccineID = vaccineID;
             Name = name;
+            VetID = vetID;
         }
     }
 
@@ -278,6 +314,23 @@ namespace PETS.Classes
             VaccineDate = vaccine_date;
             NextVaccineDate = nextVaccine;
 
+        }
+    }
+
+    public class Vet
+    {
+        public int VetID { get; set; }
+        public string VetName { get; set;}
+        public string VetLastName { get; set;}
+        public int CliniID { get; set;}
+
+
+        public Vet(int vetID, string vetName, string vetLastName, int cliniID)
+        {
+            VetID = vetID;
+            VetName = vetName;
+            VetLastName = vetLastName;
+            CliniID = cliniID;
         }
     }
 }

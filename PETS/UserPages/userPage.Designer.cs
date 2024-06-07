@@ -40,6 +40,7 @@
             this.userEmailLabel = new System.Windows.Forms.Label();
             this.petsNextVaccineDateLabel = new System.Windows.Forms.Label();
             this.userEditBtn = new System.Windows.Forms.Button();
+            this.petsVetName = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // userInformationLabel
@@ -176,11 +177,23 @@
             this.userEditBtn.UseVisualStyleBackColor = true;
             this.userEditBtn.Click += new System.EventHandler(this.userEditBtn_Click);
             // 
+            // petsVetName
+            // 
+            this.petsVetName.AccessibleName = "petsVetName";
+            this.petsVetName.AutoSize = true;
+            this.petsVetName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.petsVetName.Location = new System.Drawing.Point(404, 343);
+            this.petsVetName.Name = "petsVetName";
+            this.petsVetName.Size = new System.Drawing.Size(131, 25);
+            this.petsVetName.TabIndex = 12;
+            this.petsVetName.Text = "petsVetName";
+            // 
             // userPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.petsVetName);
             this.Controls.Add(this.userEditBtn);
             this.Controls.Add(this.petsNextVaccineDateLabel);
             this.Controls.Add(this.userEmailLabel);
@@ -215,5 +228,6 @@
         private System.Windows.Forms.Label userEmailLabel;
         private System.Windows.Forms.Label petsNextVaccineDateLabel;
         private System.Windows.Forms.Button userEditBtn;
+        private System.Windows.Forms.Label petsVetName;
     }
 }

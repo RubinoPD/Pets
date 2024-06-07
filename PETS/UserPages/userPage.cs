@@ -20,6 +20,7 @@ namespace PETS.UserPages
         private Chip _chip;
         private Vaccine _vaccine;
         private Form1 _loginForm;
+        private Vet _vet;
         public userPage(RegularUser userInfo, Form1 loginForm)
         {
             InitializeComponent();
@@ -50,6 +51,7 @@ namespace PETS.UserPages
             _pet = DBConnection.GetPet(_userInfo.PetsID);
             _chip = DBConnection.GetChip(_pet.ChipID);
             _vaccine = DBConnection.GetVaccine(_pet.VaccineID);
+            _vet = DBConnection.GetVet(_pet.VetID);
 
             if ( _pet != null )
             {
@@ -58,6 +60,7 @@ namespace PETS.UserPages
                 petsChipLabel.Text = $"Jusu gyvuno cipo data: {_chip.Date.ToString("MM/dd/yyyy")}";
                 petsVaccineDateLabel.Text = $"Paskutines vakcinacijos data: {_vaccine.VaccineDate.ToString("MM/dd/yyyy")}";
                 petsNextVaccineDateLabel.Text = $"Kitos vakcinacijos data: {_vaccine.NextVaccineDate.ToString("MM/dd/yyyy")}";
+                petsVetName.Text = $"Veterinaras: {_vet.VetName} {_vet.VetLastName}";
             } else
             {
                 petsNameLabel.Text = "Deja, neturite prideto gyvuno";
@@ -65,6 +68,7 @@ namespace PETS.UserPages
                 petsChipLabel.Visible = false;
                 petsVaccineDateLabel.Visible = false;
                 petsNextVaccineDateLabel.Visible= false;
+                petsVetName.Visible = false;
             }
 
         }
