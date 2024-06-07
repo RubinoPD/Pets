@@ -250,7 +250,12 @@ namespace PETS.Classes
                 using (var connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
-                    string query = "SELECT user_id, vardas, pavarde, el_pastas, adreso_id, gyvuno_id FROM user";
+                    string query = @"
+                        SELECT u.user_id, u.vardas, u.pavarde, u.el_pastas, 
+                               a.adresas, p.vardas as pet_name
+                        FROM user u
+                        LEFT JOIN adresas a ON u.adreso_id = a.adreso_id
+                        LEFT JOIN gyvunas p ON u.gyvuno_id = p.gyvuno_id";
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     using (var reader = cmd.ExecuteReader())
                     {
@@ -260,9 +265,14 @@ namespace PETS.Classes
                             string firstName = reader.GetString("vardas");
                             string lastName = reader.GetString("pavarde");
                             string email = reader.GetString("el_pastas");
-                            int addressId = reader.GetInt32("adreso_id");
-                            int gyvunoId = reader.GetInt32("gyvuno_id");
-                            RegularUser user = new RegularUser(firstName, lastName, 0, userId, gyvunoId, email, addressId);
+                            string address = reader.IsDBNull(reader.GetOrdinal("adresas")) ? "N/A" : reader.GetString("adresas");
+                            string petName = reader.IsDBNull(reader.GetOrdinal("pet_name")) ? "N/A" : reader.GetString("pet_name");
+
+                            RegularUser user = new RegularUser(firstName, lastName, 0, userId, 0, email, 0)
+                            {
+                                Address = address,
+                                PetName = petName
+                            };
                             users.Add(user);
                         }
                     }

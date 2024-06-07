@@ -30,7 +30,9 @@
             this.userIDHeader,
             this.firstNameHeader,
             this.lastNameHeader,
-            this.emailHeader});
+            this.emailHeader,
+            this.addressHeader,
+            this.petsHeader});
             this.userListView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.userListView.FullRowSelect = true;
             this.userListView.GridLines = true;

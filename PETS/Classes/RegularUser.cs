@@ -14,6 +14,8 @@ namespace PETS.Classes
         public string Email { get; set;}
         public int AddressID { get; set;}
         public int PetsID {  get; set;}
+        public string Address { get; set; } 
+        public string PetName { get; set; }
 
         public RegularUser(string firstName, string lastName, int login_id, int userID, int petsID, string email, int addressID)
             : base(firstName, lastName, login_id) // Call to base class constructor
