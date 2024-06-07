@@ -132,6 +132,12 @@
     <Compile Include="UserPages\adminPage.Designer.cs">
       <DependentUpon>adminPage.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserPages\EditUserForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserPages\EditUserForm.Designer.cs">
+      <DependentUpon>EditUserForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserPages\supervisorPage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -158,6 +164,9 @@
     </Compile>
     <EmbeddedResource Include="UserPages\adminPage.resx">
       <DependentUpon>adminPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserPages\EditUserForm.resx">
+      <DependentUpon>EditUserForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserPages\supervisorPage.resx">
       <DependentUpon>supervisorPage.cs</DependentUpon>

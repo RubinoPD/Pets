@@ -24,6 +24,55 @@ namespace PETS.Classes
             return connectionString;
         }
 
+        public static bool UpdateUser(RegularUser user)
+        {
+            string connectionString = GetConnectionString();
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "UPDATE user SET vardas=@FirstName, pavarde=@LastName WHERE user_id=@UserID;";
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@FirstName", user.FirstName);
+                    cmd.Parameters.AddWithValue("@LastName", user.LastName);
+                    cmd.Parameters.AddWithValue("@UserID", user.UserId);
+
+                    int result = cmd.ExecuteNonQuery();
+                    return result > 0;
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show("Database update failed: " + ex.Message, "Error", MessageBoxButtons.OK);
+                    return false;
+                }
+            }
+        }
+
+        public static bool UpdateAddress(int addressID, Address address)
+        {
+            string connectionString = GetConnectionString();
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "UPDATE adresas SET adresas=@Street WHERE adreso_id=@AddressID;";
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@Street", address.Street);
+                    cmd.Parameters.AddWithValue("@AddressID", addressID);
+
+                    int result = cmd.ExecuteNonQuery();
+                    return result > 0;
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show("Database update failed: " + ex.Message, "Error", MessageBoxButtons.OK);
+                    return false;
+                }
+            }
+        }
+
         public static Address GetAddress(int addressID)
         {
             Address address = null;

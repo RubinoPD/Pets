@@ -72,5 +72,12 @@ namespace PETS.UserPages
         {
 
         }
+
+        private void userEditBtn_Click(object sender, EventArgs e)
+        {
+            EditUserForm editUserForm = new EditUserForm(_userInfo);
+            editUserForm.ShowDialog();
+            DisplayUserInfo(); // Refresh the user info after editing
+        }
     }
 }

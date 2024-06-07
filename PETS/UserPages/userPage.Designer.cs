@@ -173,6 +173,7 @@
             this.userEditBtn.TabIndex = 11;
             this.userEditBtn.Text = "Redaguoti";
             this.userEditBtn.UseVisualStyleBackColor = true;
+            this.userEditBtn.Click += new System.EventHandler(this.userEditBtn_Click);
             // 
             // userPage
             // 
