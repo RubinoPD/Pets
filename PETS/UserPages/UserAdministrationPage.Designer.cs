@@ -20,6 +20,8 @@
             this.firstNameHeader = new System.Windows.Forms.ColumnHeader();
             this.lastNameHeader = new System.Windows.Forms.ColumnHeader();
             this.emailHeader = new System.Windows.Forms.ColumnHeader();
+            this.addressHeader = new System.Windows.Forms.ColumnHeader();
+            this.petsHeader = new System.Windows.Forms.ColumnHeader();
             this.SuspendLayout();
             // 
             // userListView
@@ -56,6 +58,14 @@
             // 
             this.emailHeader.Text = "Email";
             // 
+            // addressHeader
+            // 
+            this.addressHeader.Text = "Address";
+            // 
+            // petHeader
+            // 
+            this.petsHeader.Text = "Pets";
+            // 
             // UserAdministrationPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -73,5 +83,7 @@
         private System.Windows.Forms.ColumnHeader firstNameHeader;
         private System.Windows.Forms.ColumnHeader lastNameHeader;
         private System.Windows.Forms.ColumnHeader emailHeader;
+        private System.Windows.Forms.ColumnHeader addressHeader;
+        private System.Windows.Forms.ColumnHeader petsHeader;
     }
 }

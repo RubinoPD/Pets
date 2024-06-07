@@ -29,6 +29,8 @@ namespace PETS.UserPages
                 item.SubItems.Add(user.FirstName);
                 item.SubItems.Add(user.LastName);
                 item.SubItems.Add(user.Email);
+                item.SubItems.Add(user.AddressID.ToString());
+                item.SubItems.Add(user.PetsID.ToString());
                 userListView.Items.Add(item);
             }
         }
