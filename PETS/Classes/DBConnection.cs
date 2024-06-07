@@ -240,6 +240,40 @@ namespace PETS.Classes
             }
             return vet;
         }
+
+        public static List<RegularUser> GetAllUsers()
+        {
+            List<RegularUser> users = new List<RegularUser>();
+            string connectionString = GetConnectionString();
+            try
+            {
+                using (var connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = "SELECT user_id, vardas, pavarde, el_pastas, adreso_id, gyvuno_id FROM user";
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int userId = reader.GetInt32("user_id");
+                            string firstName = reader.GetString("vardas");
+                            string lastName = reader.GetString("pavarde");
+                            string email = reader.GetString("el_pastas");
+                            int addressId = reader.GetInt32("adreso_id");
+                            int gyvunoId = reader.GetInt32("gyvuno_id");
+                            RegularUser user = new RegularUser(firstName, lastName, 0, userId, gyvunoId, email, addressId);
+                            users.Add(user);
+                        }
+                    }
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Database connection failed: " + ex.Message, "Error", MessageBoxButtons.OK);
+            }
+            return users;
+        }
     }
 
     public class Address

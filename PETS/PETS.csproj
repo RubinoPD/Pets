@@ -144,6 +144,12 @@
     <Compile Include="UserPages\supervisorPage.Designer.cs">
       <DependentUpon>supervisorPage.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserPages\UserAdministrationPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserPages\UserAdministrationPage.Designer.cs">
+      <DependentUpon>UserAdministrationPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserPages\userPage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -170,6 +176,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserPages\supervisorPage.resx">
       <DependentUpon>supervisorPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserPages\UserAdministrationPage.resx">
+      <DependentUpon>UserAdministrationPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserPages\userPage.resx">
       <DependentUpon>userPage.cs</DependentUpon>

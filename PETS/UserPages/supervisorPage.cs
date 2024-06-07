@@ -31,5 +31,11 @@ namespace PETS.UserPages
         {
 
         }
+
+        private void userAdministration_Click(object sender, EventArgs e)
+        {
+            UserAdministrationPage userAdministrationPage = new UserAdministrationPage();
+            userAdministrationPage.Show();
+        }
     }
 }

@@ -69,6 +69,7 @@
             this.userAdministration.TabIndex = 2;
             this.userAdministration.Text = "Administruoti naudotojus";
             this.userAdministration.UseVisualStyleBackColor = true;
+            this.userAdministration.Click += new System.EventHandler(this.userAdministration_Click);
             // 
             // button1
             // 

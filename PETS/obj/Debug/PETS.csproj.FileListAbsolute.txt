@@ -44,3 +44,4 @@ C:\Users\Robertas\Desktop\duomenu baziu praktika\PETS\PETS\obj\Debug\PETS.UserPa
 C:\Users\Robertas\Desktop\duomenu baziu praktika\PETS\PETS\obj\Debug\PETS.UserPages.supervisorPage.resources
 C:\Users\Robertas\Desktop\duomenu baziu praktika\PETS\PETS\obj\Debug\PETS.UserPages.userPage.resources
 C:\Users\Robertas\Desktop\duomenu baziu praktika\PETS\PETS\obj\Debug\PETS.UserPages.EditUserForm.resources
+C:\Users\Robertas\Desktop\duomenu baziu praktika\PETS\PETS\obj\Debug\PETS.UserPages.UserAdministrationPage.resources
