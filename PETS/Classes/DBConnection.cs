@@ -103,6 +103,30 @@ namespace PETS.Classes
             }
         }
 
+        public static bool UpdateClinic(Clinic clinic)
+        {
+            string connectionString = GetConnectionString();
+            try
+            {
+                using (var connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = "UPDATE klinikos SET pavadinimas = @ClinicName WHERE klinikos_id = @ClinicID";
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@ClinicName", clinic.ClinicName);
+                    cmd.Parameters.AddWithValue("@ClinicID", clinic.ClinicID);
+
+                    int result = cmd.ExecuteNonQuery();
+                    return result > 0;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Database update failed: " + ex.Message, "Error", MessageBoxButtons.OK);
+                return false;
+            }
+        }
+
         // Get functions
 
         public static RegularUser GetUserById(int userId)
@@ -488,6 +512,35 @@ namespace PETS.Classes
             return clinics;
         }
 
+        public static Clinic GetClinicById(int clinicId)
+        {
+            Clinic clinic = null;
+            string connectionString = GetConnectionString();
+            try
+            {
+                using (var connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = "SELECT klinikos_id, pavadinimas FROM klinikos WHERE klinikos_id = @ClinicID";
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@ClinicID", clinicId);
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        int id = reader.GetInt32("klinikos_id");
+                        string name = reader.GetString("pavadinimas");
+
+                        clinic = new Clinic(id, name, "");
+                    }
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Database connection failed: " + ex.Message, "Error", MessageBoxButtons.OK);
+            }
+            return clinic;
+        }
+
 
         // Delete functions
 
@@ -525,6 +578,29 @@ namespace PETS.Classes
                     string query = "DELETE FROM veterinaras WHERE vet_id = @VetId";
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("@VetId", vetId);
+                    int result = cmd.ExecuteNonQuery();
+                    return result > 0;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Database deletion failed: " + ex.Message, "Error", MessageBoxButtons.OK);
+                return false;
+            }
+        }
+
+        public static bool DeleteClinic(int clinicId)
+        {
+            string connectionString = GetConnectionString();
+            try
+            {
+                using (var connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = "DELETE FROM klinikos WHERE klinikos_id = @ClinicID";
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@ClinicID", clinicId);
+
                     int result = cmd.ExecuteNonQuery();
                     return result > 0;
                 }

@@ -43,5 +43,11 @@ namespace PETS.UserPages
             VetAdministrationPage vetAdministrationPage = new VetAdministrationPage();
             vetAdministrationPage.ShowDialog();
         }
+
+        private void clinicAdministration_Click(object sender, EventArgs e)
+        {
+            ClinicAdministrationPage clinicAdministrationPage = new ClinicAdministrationPage();
+            clinicAdministrationPage.ShowDialog();
+        }
     }
 }
