@@ -114,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Admin.cs" />
+    <Compile Include="Classes\Clinic.cs" />
     <Compile Include="Classes\RegularUser.cs" />
     <Compile Include="Classes\Supervisor.cs" />
     <Compile Include="Classes\User.cs" />

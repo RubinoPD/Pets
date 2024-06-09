@@ -457,6 +457,37 @@ namespace PETS.Classes
             return vets;
         }
 
+        public static List<Clinic> GetAllClinics()
+        {
+            List<Clinic> clinics = new List<Clinic>();
+            string connectionString = GetConnectionString();
+            try
+            {
+                using (var connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = "SELECT klinikos_id, pavadinimas, adresas FROM klinikos";
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        int clinicID = reader.GetInt32("klinikos_id");
+                        string clinicName = reader.GetString("pavadinimas");
+                        string clinicAddress = reader.GetString("adresas");
+                        // int cityID = reader.GetInt32("miesto_id");
+
+                        Clinic clinic = new Clinic(clinicID, clinicName, clinicAddress);
+                        clinics.Add(clinic);
+                    }
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Database connection failed: " + ex.Message, "Error", MessageBoxButtons.OK);
+            }
+            return clinics;
+        }
+
 
         // Delete functions
 
