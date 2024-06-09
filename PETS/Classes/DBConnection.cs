@@ -306,7 +306,7 @@ namespace PETS.Classes
                         string lastName = reader.GetString(reader.GetOrdinal("pavarde"));
                         int clinicID = reader.GetInt32(reader.GetOrdinal("klinikos_id"));
 
-                        vet = new Vet(vetID, name, lastName, clinicID); 
+                        vet = new Vet(vetID, name, lastName, clinicID, ""); 
                     }
                 }
                 catch (MySqlException ex)
@@ -380,7 +380,7 @@ namespace PETS.Classes
                         string lastName = reader.GetString("pavarde");
                         int clinicId = reader.GetInt32("klinikos_id");
 
-                        Vet vet = new Vet(vetId, firstName, lastName, clinicId);
+                        Vet vet = new Vet(vetId, firstName, lastName, clinicId, "");
                         vets.Add(vet);
                     }
                 }
@@ -412,7 +412,7 @@ namespace PETS.Classes
                         string lastName = reader.GetString("pavarde");
                         int clinicId = reader.GetInt32("klinikos_id");
 
-                        vet = new Vet(vetID, firstName, lastName, clinicId);
+                        vet = new Vet(vetID, firstName, lastName, clinicId, "");
                     }
                 }
             }
@@ -421,6 +421,40 @@ namespace PETS.Classes
                 MessageBox.Show("Database connection failed: " + ex.Message, "Error", MessageBoxButtons.OK);
             }
             return vet;
+        }
+
+        public static List<Vet> GetAllVetsWithClinicNames()
+        {
+            List<Vet> vets = new List<Vet>();
+            string connectionString = GetConnectionString();
+            try
+            {
+                using (var connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = @"
+                SELECT v.vet_id, v.vardas, v.pavarde, c.pavadinimas
+                FROM veterinaras v
+                JOIN klinikos c ON v.klinikos_id = c.klinikos_id";
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        int vetId = reader.GetInt32("vet_id");
+                        string firstName = reader.GetString("vardas");
+                        string lastName = reader.GetString("pavarde");
+                        string clinicName = reader.GetString("pavadinimas");
+
+                        Vet vet = new Vet(vetId, firstName, lastName, 0, clinicName);
+                        vets.Add(vet);
+                    }
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Database connection failed: " + ex.Message, "Error", MessageBoxButtons.OK);
+            }
+            return vets;
         }
 
 
@@ -554,15 +588,18 @@ namespace PETS.Classes
         public int VetID { get; set; }
         public string VetName { get; set;}
         public string VetLastName { get; set;}
+
         public int CliniID { get; set;}
+        public string ClinicName { get; set;}
 
 
-        public Vet(int vetID, string vetName, string vetLastName, int cliniID)
+        public Vet(int vetID, string vetName, string vetLastName, int cliniID, string clinicName)
         {
             VetID = vetID;
             VetName = vetName;
             VetLastName = vetLastName;
             CliniID = cliniID;
+            ClinicName = clinicName;
         }
     }
 }

@@ -15,11 +15,11 @@ namespace PETS.UserPages
 
         private void LoadVets()
         {
-            List<Vet> vets = DBConnection.GetAllVets();
+            List<Vet> vets = DBConnection.GetAllVetsWithClinicNames();
             vetDataGridView.Rows.Clear();
             foreach (var vet in vets)
             {
-                vetDataGridView.Rows.Add(vet.VetID, vet.VetName, vet.VetLastName, vet.CliniID);
+                vetDataGridView.Rows.Add(vet.VetID, vet.VetName, vet.VetLastName, vet.ClinicName);
             }
         }
 
