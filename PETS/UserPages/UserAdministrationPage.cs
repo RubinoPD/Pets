@@ -44,7 +44,27 @@ namespace PETS.UserPages
                 editUserForm.ShowDialog();
                 LoadUsers(); // Refresh the user list after editing
             }
-        }
 
+            // Check if the clicked cell is part of the "Delete User" column
+            else if (e.ColumnIndex == userDataGridView.Columns["deleteUserButtonColumn"].Index && e.RowIndex >= 0)
+            {
+                int userId = (int)userDataGridView.Rows[e.RowIndex].Cells["userIDColumn"].Value;
+                var result = MessageBox.Show("Are you sure you want to delete this user?", "Delete User", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    bool success = DBConnection.DeleteUser(userId);
+                    if (success)
+                    {
+                        MessageBox.Show("User deleted successfully.");
+                        LoadUsers(); // Refresh the user list after deletion
+                    }
+                    else
+                    {
+                        MessageBox.Show("Failed to delete user.");
+                    }
+                }
+            }
+        }
     }
 }

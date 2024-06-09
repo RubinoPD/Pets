@@ -23,6 +23,7 @@
             this.addressColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.petsNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.editUserButtonColumn = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.deleteUserButtonColumn = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.userDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -36,7 +37,8 @@
             this.emailColumn,
             this.addressColumn,
             this.petsNameColumn,
-            this.editUserButtonColumn});
+            this.editUserButtonColumn,
+            this.deleteUserButtonColumn});
             this.userDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.userDataGridView.Location = new System.Drawing.Point(0, 0);
             this.userDataGridView.Name = "userDataGridView";
@@ -88,6 +90,13 @@
             this.editUserButtonColumn.Text = "Edit";
             this.editUserButtonColumn.UseColumnTextForButtonValue = true;
             // 
+            // deleteUserButtonColumn
+            // 
+            this.deleteUserButtonColumn.HeaderText = "Delete User";
+            this.deleteUserButtonColumn.Name = "deleteUserButtonColumn";
+            this.deleteUserButtonColumn.Text = "Delete";
+            this.deleteUserButtonColumn.UseColumnTextForButtonValue = true;
+            // 
             // UserAdministrationPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -109,5 +118,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn addressColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn petsNameColumn;
         private System.Windows.Forms.DataGridViewButtonColumn editUserButtonColumn;
+        private System.Windows.Forms.DataGridViewButtonColumn deleteUserButtonColumn;
     }
 }

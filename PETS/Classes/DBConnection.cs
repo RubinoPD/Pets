@@ -24,6 +24,8 @@ namespace PETS.Classes
             return connectionString;
         }
 
+        // Update functions
+
         public static bool UpdateUser(RegularUser user)
         {
             string connectionString = GetConnectionString();
@@ -74,6 +76,8 @@ namespace PETS.Classes
                 }
             }
         }
+
+        // Get functions
 
         public static RegularUser GetUserById(int userId)
         {
@@ -330,6 +334,33 @@ namespace PETS.Classes
             }
             return users;
         }
+
+        // Delete functions
+
+        public static bool DeleteUser(int userId)
+        {
+            string connectionString = GetConnectionString();
+            try
+            {
+                using (var connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = "DELETE FROM user WHERE user_id = @UserId";
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@UserId", userId);
+
+                    int result = cmd.ExecuteNonQuery();
+                    return result > 0;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Database deletion failed: " + ex.Message, "Error", MessageBoxButtons.OK);
+                return false;
+            }
+        }
+
+
     }
 
     public class Address
