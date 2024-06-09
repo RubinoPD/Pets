@@ -77,6 +77,32 @@ namespace PETS.Classes
             }
         }
 
+        public static bool UpdateVet(Vet vet)
+        {
+            string connectionString = GetConnectionString();
+            try
+            {
+                using (var connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = "UPDATE veterinaras SET vardas = @FirstName, pavarde = @LastName, klinikos_id = @ClinicID WHERE vet_id = @VetID";
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@FirstName", vet.VetName);
+                    cmd.Parameters.AddWithValue("@LastName", vet.VetLastName);
+                    cmd.Parameters.AddWithValue("@ClinicID", vet.CliniID);
+                    cmd.Parameters.AddWithValue("@VetID", vet.VetID);
+
+                    int result = cmd.ExecuteNonQuery();
+                    return result > 0;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Database update failed: " + ex.Message, "Error", MessageBoxButtons.OK);
+                return false;
+            }
+        }
+
         // Get functions
 
         public static RegularUser GetUserById(int userId)
@@ -335,6 +361,69 @@ namespace PETS.Classes
             return users;
         }
 
+        public static List<Vet> GetAllVets()
+        {
+            List<Vet> vets = new List<Vet>();
+            string connectionString = GetConnectionString();
+            try
+            {
+                using (var connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = @"SELECT vet_id, vardas, pavarde, klinikos_id FROM veterinaras";
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        int vetId = reader.GetInt32("vet_id");
+                        string firstName = reader.GetString("vardas");
+                        string lastName = reader.GetString("pavarde");
+                        int clinicId = reader.GetInt32("klinikos_id");
+
+                        Vet vet = new Vet(vetId, firstName, lastName, clinicId);
+                        vets.Add(vet);
+                    }
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Database connection failed: " + ex.Message, "Error", MessageBoxButtons.OK);
+            }
+            return vets;
+        }
+
+        public static Vet GetVetById(int vetId)
+        {
+            Vet vet = null;
+            string connectionString = GetConnectionString();
+            try
+            {
+                using (var connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = "SELECT vet_id, vardas, pavarde, klinikos_id FROM veterinaras WHERE vet_id = @VetId";
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@VetId", vetId);
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        int vetID = reader.GetInt32("vet_id");
+                        string firstName = reader.GetString("vardas");
+                        string lastName = reader.GetString("pavarde");
+                        int clinicId = reader.GetInt32("klinikos_id");
+
+                        vet = new Vet(vetID, firstName, lastName, clinicId);
+                    }
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Database connection failed: " + ex.Message, "Error", MessageBoxButtons.OK);
+            }
+            return vet;
+        }
+
+
         // Delete functions
 
         public static bool DeleteUser(int userId)
@@ -349,6 +438,28 @@ namespace PETS.Classes
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("@UserId", userId);
 
+                    int result = cmd.ExecuteNonQuery();
+                    return result > 0;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Database deletion failed: " + ex.Message, "Error", MessageBoxButtons.OK);
+                return false;
+            }
+        }
+
+        public static bool DeleteVet(int vetId)
+        {
+            string connectionString = GetConnectionString();
+            try
+            {
+                using (var connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = "DELETE FROM veterinaras WHERE vet_id = @VetId";
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@VetId", vetId);
                     int result = cmd.ExecuteNonQuery();
                     return result > 0;
                 }

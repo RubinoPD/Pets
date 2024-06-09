@@ -37,5 +37,11 @@ namespace PETS.UserPages
             UserAdministrationPage userAdministrationPage = new UserAdministrationPage();
             userAdministrationPage.Show();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            VetAdministrationPage vetAdministrationPage = new VetAdministrationPage();
+            vetAdministrationPage.ShowDialog();
+        }
     }
 }
