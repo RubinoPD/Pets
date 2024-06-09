@@ -26,6 +26,7 @@
             this.clinicDataGridView = new System.Windows.Forms.DataGridView();
             this.clinicIDColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clinicNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clinicAddressColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.editClinicButtonColumn = new System.Windows.Forms.DataGridViewButtonColumn();
             this.deleteClinicButtonColumn = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.clinicDataGridView)).BeginInit();
@@ -37,6 +38,7 @@
             this.clinicDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.clinicIDColumn,
             this.clinicNameColumn,
+            this.clinicAddressColumn,
             this.editClinicButtonColumn,
             this.deleteClinicButtonColumn});
             this.clinicDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -58,6 +60,12 @@
             this.clinicNameColumn.HeaderText = "Clinic Name";
             this.clinicNameColumn.Name = "clinicNameColumn";
             this.clinicNameColumn.ReadOnly = true;
+            // 
+            // clinicAddressColumn
+            // 
+            this.clinicAddressColumn.HeaderText = "Address";
+            this.clinicAddressColumn.Name = "clinicAddressColumn";
+            this.clinicAddressColumn.ReadOnly = true;
             // 
             // editClinicButtonColumn
             // 
@@ -89,6 +97,7 @@
         private System.Windows.Forms.DataGridView clinicDataGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn clinicIDColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn clinicNameColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clinicAddressColumn;
         private System.Windows.Forms.DataGridViewButtonColumn editClinicButtonColumn;
         private System.Windows.Forms.DataGridViewButtonColumn deleteClinicButtonColumn;
     }

@@ -19,7 +19,7 @@ namespace PETS.UserPages
             clinicDataGridView.Rows.Clear();
             foreach (var clinic in clinics)
             {
-                clinicDataGridView.Rows.Add(clinic.ClinicID, clinic.ClinicName);
+                clinicDataGridView.Rows.Add(clinic.ClinicID, clinic.ClinicName, clinic.Address);
             }
         }
 

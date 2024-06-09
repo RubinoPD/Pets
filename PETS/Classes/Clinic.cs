@@ -4,13 +4,13 @@
     {
         public int ClinicID { get; set; }
         public string ClinicName { get; set; }
-        public string ClinicAddress { get; set; }
+        public string Address { get; set; }
 
-        public Clinic(int clinicID, string clinicName, string clinicAddress)
+        public Clinic(int clinicID, string clinicName, string address)
         {
             ClinicID = clinicID;
             ClinicName = clinicName;
-            ClinicAddress = clinicAddress;
+            Address = address;
         }
 
         public override string ToString()

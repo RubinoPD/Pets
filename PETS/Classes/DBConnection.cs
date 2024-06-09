@@ -111,9 +111,10 @@ namespace PETS.Classes
                 using (var connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
-                    string query = "UPDATE klinikos SET pavadinimas = @ClinicName WHERE klinikos_id = @ClinicID";
+                    string query = "UPDATE klinikos SET pavadinimas = @ClinicName, adresas=@Address WHERE klinikos_id = @ClinicID";
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("@ClinicName", clinic.ClinicName);
+                    cmd.Parameters.AddWithValue("@Address", clinic.Address);
                     cmd.Parameters.AddWithValue("@ClinicID", clinic.ClinicID);
 
                     int result = cmd.ExecuteNonQuery();
@@ -521,7 +522,7 @@ namespace PETS.Classes
                 using (var connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
-                    string query = "SELECT klinikos_id, pavadinimas FROM klinikos WHERE klinikos_id = @ClinicID";
+                    string query = "SELECT klinikos_id, pavadinimas, adresas FROM klinikos WHERE klinikos_id = @ClinicID";
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("@ClinicID", clinicId);
                     MySqlDataReader reader = cmd.ExecuteReader();
@@ -529,8 +530,9 @@ namespace PETS.Classes
                     {
                         int id = reader.GetInt32("klinikos_id");
                         string name = reader.GetString("pavadinimas");
+                        string address = reader.GetString("adresas");
 
-                        clinic = new Clinic(id, name, "");
+                        clinic = new Clinic(id, name, address);
                     }
                 }
             }

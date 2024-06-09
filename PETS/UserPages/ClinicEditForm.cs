@@ -19,12 +19,14 @@ namespace PETS.UserPages
         {
             clinicIdTextBox.Text = _clinic.ClinicID.ToString();
             clinicNameTextBox.Text = _clinic.ClinicName;
+            clinicAddressTextBox.Text = _clinic.Address;
         }
 
         private void saveButton_Click(object sender, EventArgs e)
         {
             // Update clinic info
             _clinic.ClinicName = clinicNameTextBox.Text;
+            _clinic.Address = clinicAddressTextBox.Text;
 
             // Update clinic info in the database
             bool success = DBConnection.UpdateClinic(_clinic);
