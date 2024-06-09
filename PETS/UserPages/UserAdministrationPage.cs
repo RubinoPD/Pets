@@ -23,16 +23,28 @@ namespace PETS.UserPages
         private void LoadUsers()
         {
             List<RegularUser> users = DBConnection.GetAllUsers();
+
+            userDataGridView.Rows.Clear();
+
             foreach (var user in users)
             {
-                ListViewItem item = new ListViewItem(user.UserId.ToString());
-                item.SubItems.Add(user.FirstName);
-                item.SubItems.Add(user.LastName);
-                item.SubItems.Add(user.Email);
-                item.SubItems.Add(user.Address);
-                item.SubItems.Add(user.PetName);
-                userListView.Items.Add(item);
+                userDataGridView.Rows.Add(user.UserId, user.FirstName, user.LastName, user.Email, user.Address, user.PetName);
             }
         }
+
+        private void userDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Check if the clicked cell is part of the "Edit User" column
+            if (e.ColumnIndex == userDataGridView.Columns["editUserButtonColumn"].Index && e.RowIndex >= 0)
+            {
+                int userId = (int)userDataGridView.Rows[e.RowIndex].Cells["userIDColumn"].Value;
+                RegularUser user = DBConnection.GetUserById(userId); // Fetch the user details by user ID
+
+                UserEditForm editUserForm = new UserEditForm(user);
+                editUserForm.ShowDialog();
+                LoadUsers(); // Refresh the user list after editing
+            }
+        }
+
     }
 }

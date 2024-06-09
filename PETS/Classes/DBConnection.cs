@@ -27,15 +27,17 @@ namespace PETS.Classes
         public static bool UpdateUser(RegularUser user)
         {
             string connectionString = GetConnectionString();
+
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 try
                 {
                     connection.Open();
-                    string query = "UPDATE user SET vardas=@FirstName, pavarde=@LastName WHERE user_id=@UserID;";
+                    string query = "UPDATE user SET vardas=@FirstName, pavarde=@LastName, el_pastas=@Email WHERE user_id=@UserID;";
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("@FirstName", user.FirstName);
                     cmd.Parameters.AddWithValue("@LastName", user.LastName);
+                    cmd.Parameters.AddWithValue("@Email", user.Email);
                     cmd.Parameters.AddWithValue("@UserID", user.UserId);
 
                     int result = cmd.ExecuteNonQuery();
@@ -71,6 +73,50 @@ namespace PETS.Classes
                     return false;
                 }
             }
+        }
+
+        public static RegularUser GetUserById(int userId)
+        {
+            RegularUser user = null;
+            string connectionString = GetConnectionString();
+            try
+            {
+                using (var connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = @"
+                SELECT u.user_id, u.vardas, u.pavarde, u.el_pastas, 
+                       a.adresas, p.vardas as pet_name
+                FROM user u
+                LEFT JOIN adresas a ON u.adreso_id = a.adreso_id
+                LEFT JOIN gyvunas p ON u.gyvuno_id = p.gyvuno_id
+                WHERE u.user_id = @UserId";
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@UserId", userId);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            string firstName = reader.GetString("vardas");
+                            string lastName = reader.GetString("pavarde");
+                            string email = reader.GetString("el_pastas");
+                            string address = reader.IsDBNull(reader.GetOrdinal("adresas")) ? "N/A" : reader.GetString("adresas");
+                            string petName = reader.IsDBNull(reader.GetOrdinal("pet_name")) ? "N/A" : reader.GetString("pet_name");
+
+                            user = new RegularUser(firstName, lastName, 0, userId, 0, email, 0)
+                            {
+                                Address = address,
+                                PetName = petName
+                            };
+                        }
+                    }
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Database connection failed: " + ex.Message, "Error", MessageBoxButtons.OK);
+            }
+            return user;
         }
 
         public static Address GetAddress(int addressID)

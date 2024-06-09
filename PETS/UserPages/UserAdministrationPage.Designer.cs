@@ -15,77 +15,99 @@
 
         private void InitializeComponent()
         {
-            this.userListView = new System.Windows.Forms.ListView();
-            this.userIDHeader = new System.Windows.Forms.ColumnHeader();
-            this.firstNameHeader = new System.Windows.Forms.ColumnHeader();
-            this.lastNameHeader = new System.Windows.Forms.ColumnHeader();
-            this.emailHeader = new System.Windows.Forms.ColumnHeader();
-            this.addressHeader = new System.Windows.Forms.ColumnHeader();
-            this.petsHeader = new System.Windows.Forms.ColumnHeader();
+            this.userDataGridView = new System.Windows.Forms.DataGridView();
+            this.userIDColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.firstNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lastNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.emailColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.addressColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.petsNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.editUserButtonColumn = new System.Windows.Forms.DataGridViewButtonColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.userDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
-            // userListView
+            // userDataGridView
             // 
-            this.userListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.userIDHeader,
-            this.firstNameHeader,
-            this.lastNameHeader,
-            this.emailHeader,
-            this.addressHeader,
-            this.petsHeader});
-            this.userListView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.userListView.FullRowSelect = true;
-            this.userListView.GridLines = true;
-            this.userListView.HideSelection = false;
-            this.userListView.Location = new System.Drawing.Point(0, 0);
-            this.userListView.Name = "userListView";
-            this.userListView.Size = new System.Drawing.Size(800, 450);
-            this.userListView.TabIndex = 0;
-            this.userListView.UseCompatibleStateImageBehavior = false;
-            this.userListView.View = System.Windows.Forms.View.Details;
+            this.userDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.userDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.userIDColumn,
+            this.firstNameColumn,
+            this.lastNameColumn,
+            this.emailColumn,
+            this.addressColumn,
+            this.petsNameColumn,
+            this.editUserButtonColumn});
+            this.userDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.userDataGridView.Location = new System.Drawing.Point(0, 0);
+            this.userDataGridView.Name = "userDataGridView";
+            this.userDataGridView.RowTemplate.Height = 24;
+            this.userDataGridView.Size = new System.Drawing.Size(800, 450);
+            this.userDataGridView.TabIndex = 0;
+            this.userDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.userDataGridView_CellContentClick);
             // 
-            // userIDHeader
+            // userIDColumn
             // 
-            this.userIDHeader.Text = "User ID";
+            this.userIDColumn.HeaderText = "User ID";
+            this.userIDColumn.Name = "userIDColumn";
+            this.userIDColumn.ReadOnly = true;
             // 
-            // firstNameHeader
+            // firstNameColumn
             // 
-            this.firstNameHeader.Text = "First Name";
+            this.firstNameColumn.HeaderText = "First Name";
+            this.firstNameColumn.Name = "firstNameColumn";
+            this.firstNameColumn.ReadOnly = true;
             // 
-            // lastNameHeader
+            // lastNameColumn
             // 
-            this.lastNameHeader.Text = "Last Name";
+            this.lastNameColumn.HeaderText = "Last Name";
+            this.lastNameColumn.Name = "lastNameColumn";
+            this.lastNameColumn.ReadOnly = true;
             // 
-            // emailHeader
+            // emailColumn
             // 
-            this.emailHeader.Text = "Email";
+            this.emailColumn.HeaderText = "Email";
+            this.emailColumn.Name = "emailColumn";
+            this.emailColumn.ReadOnly = true;
             // 
-            // addressHeader
+            // addressColumn
             // 
-            this.addressHeader.Text = "Address";
+            this.addressColumn.HeaderText = "Address";
+            this.addressColumn.Name = "addressColumn";
+            this.addressColumn.ReadOnly = true;
             // 
-            // petHeader
+            // petsNameColumn
             // 
-            this.petsHeader.Text = "Pets";
+            this.petsNameColumn.HeaderText = "Pet's Name";
+            this.petsNameColumn.Name = "petsNameColumn";
+            this.petsNameColumn.ReadOnly = true;
+            // 
+            // editUserButtonColumn
+            // 
+            this.editUserButtonColumn.HeaderText = "Edit User";
+            this.editUserButtonColumn.Name = "editUserButtonColumn";
+            this.editUserButtonColumn.Text = "Edit";
+            this.editUserButtonColumn.UseColumnTextForButtonValue = true;
             // 
             // UserAdministrationPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.userListView);
+            this.Controls.Add(this.userDataGridView);
             this.Name = "UserAdministrationPage";
             this.Text = "User Administration";
+            ((System.ComponentModel.ISupportInitialize)(this.userDataGridView)).EndInit();
             this.ResumeLayout(false);
 
         }
 
-        private System.Windows.Forms.ListView userListView;
-        private System.Windows.Forms.ColumnHeader userIDHeader;
-        private System.Windows.Forms.ColumnHeader firstNameHeader;
-        private System.Windows.Forms.ColumnHeader lastNameHeader;
-        private System.Windows.Forms.ColumnHeader emailHeader;
-        private System.Windows.Forms.ColumnHeader addressHeader;
-        private System.Windows.Forms.ColumnHeader petsHeader;
+        private System.Windows.Forms.DataGridView userDataGridView;
+        private System.Windows.Forms.DataGridViewTextBoxColumn userIDColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn firstNameColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn lastNameColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn emailColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn addressColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn petsNameColumn;
+        private System.Windows.Forms.DataGridViewButtonColumn editUserButtonColumn;
     }
 }
