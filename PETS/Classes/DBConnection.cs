@@ -544,7 +544,7 @@ namespace PETS.Classes
         }
 
 
-        // Delete functionss
+        // Delete functions
 
         public static bool DeleteUser(int userId)
         {
