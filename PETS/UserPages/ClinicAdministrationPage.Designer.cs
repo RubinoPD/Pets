@@ -27,6 +27,7 @@
             this.clinicIDColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clinicNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clinicAddressColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clinicCityColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.editClinicButtonColumn = new System.Windows.Forms.DataGridViewButtonColumn();
             this.deleteClinicButtonColumn = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.clinicDataGridView)).BeginInit();
@@ -39,6 +40,7 @@
             this.clinicIDColumn,
             this.clinicNameColumn,
             this.clinicAddressColumn,
+            this.clinicCityColumn,
             this.editClinicButtonColumn,
             this.deleteClinicButtonColumn});
             this.clinicDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -66,6 +68,12 @@
             this.clinicAddressColumn.HeaderText = "Address";
             this.clinicAddressColumn.Name = "clinicAddressColumn";
             this.clinicAddressColumn.ReadOnly = true;
+            // 
+            // clinicCityColumn
+            // 
+            this.clinicCityColumn.HeaderText = "City";
+            this.clinicCityColumn.Name = "clinicCityColumn";
+            this.clinicCityColumn.ReadOnly = true;
             // 
             // editClinicButtonColumn
             // 
@@ -98,6 +106,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn clinicIDColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn clinicNameColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn clinicAddressColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clinicCityColumn;
         private System.Windows.Forms.DataGridViewButtonColumn editClinicButtonColumn;
         private System.Windows.Forms.DataGridViewButtonColumn deleteClinicButtonColumn;
     }

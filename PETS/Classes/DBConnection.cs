@@ -188,10 +188,11 @@ namespace PETS.Classes
                 using (var connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
-                    string query = "UPDATE klinikos SET pavadinimas = @ClinicName, adresas=@Address WHERE klinikos_id = @ClinicID";
+                    string query = "UPDATE klinikos SET pavadinimas = @ClinicName, adresas=@Address, miesto_id=@CityID WHERE klinikos_id = @ClinicID";
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("@ClinicName", clinic.ClinicName);
                     cmd.Parameters.AddWithValue("@Address", clinic.Address);
+                    cmd.Parameters.AddWithValue("@CityID", clinic.CityID);
                     cmd.Parameters.AddWithValue("@ClinicID", clinic.ClinicID);
 
                     int result = cmd.ExecuteNonQuery();
@@ -568,7 +569,10 @@ namespace PETS.Classes
                 using (var connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
-                    string query = "SELECT klinikos_id, pavadinimas, adresas FROM klinikos";
+                    string query = @"
+                    SELECT k.klinikos_id, k.pavadinimas, k.adresas, m.miesto_id, m.pavadinimas AS city_name
+                    FROM klinikos k
+                    JOIN miestai m ON k.miesto_id = m.miesto_id";
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     MySqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
@@ -576,9 +580,10 @@ namespace PETS.Classes
                         int clinicID = reader.GetInt32("klinikos_id");
                         string clinicName = reader.GetString("pavadinimas");
                         string clinicAddress = reader.GetString("adresas");
-                        // int cityID = reader.GetInt32("miesto_id");
+                        int cityID = reader.GetInt32("miesto_id");
+                        string cityName = reader.GetString("city_name");
 
-                        Clinic clinic = new Clinic(clinicID, clinicName, clinicAddress, 0);
+                        Clinic clinic = new Clinic(clinicID, clinicName, clinicAddress, cityID, cityName);
                         clinics.Add(clinic);
                     }
                 }
@@ -599,7 +604,11 @@ namespace PETS.Classes
                 using (var connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
-                    string query = "SELECT klinikos_id, pavadinimas, adresas FROM klinikos WHERE klinikos_id = @ClinicID";
+                    string query = @"
+                    SELECT k.klinikos_id, k.pavadinimas, k.adresas, m.miesto_id, m.pavadinimas AS city_name
+                    FROM klinikos k
+                    JOIN miestai m ON k.miesto_id = m.miesto_id
+                    WHERE k.klinikos_id = @ClinicID";
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("@ClinicID", clinicId);
                     MySqlDataReader reader = cmd.ExecuteReader();
@@ -608,8 +617,10 @@ namespace PETS.Classes
                         int id = reader.GetInt32("klinikos_id");
                         string name = reader.GetString("pavadinimas");
                         string address = reader.GetString("adresas");
+                        int cityID = reader.GetInt32("miesto_id");
+                        string cityName = reader.GetString("city_name");
 
-                        clinic = new Clinic(id, name, address, 0);
+                        clinic = new Clinic(id, name, address, cityID, cityName);
                     }
                 }
             }

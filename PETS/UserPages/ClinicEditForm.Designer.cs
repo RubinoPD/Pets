@@ -18,9 +18,11 @@
             this.clinicIdLabel = new System.Windows.Forms.Label();
             this.clinicNameLabel = new System.Windows.Forms.Label();
             this.clinicAddressLabel = new System.Windows.Forms.Label();
+            this.clinicCityLabel = new System.Windows.Forms.Label();
             this.clinicIdTextBox = new System.Windows.Forms.TextBox();
             this.clinicNameTextBox = new System.Windows.Forms.TextBox();
             this.clinicAddressTextBox = new System.Windows.Forms.TextBox();
+            this.clinicCityComboBox = new System.Windows.Forms.ComboBox();
             this.saveButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -51,6 +53,15 @@
             this.clinicAddressLabel.TabIndex = 2;
             this.clinicAddressLabel.Text = "Address";
             // 
+            // clinicCityLabel
+            // 
+            this.clinicCityLabel.AutoSize = true;
+            this.clinicCityLabel.Location = new System.Drawing.Point(12, 105);
+            this.clinicCityLabel.Name = "clinicCityLabel";
+            this.clinicCityLabel.Size = new System.Drawing.Size(31, 17);
+            this.clinicCityLabel.TabIndex = 3;
+            this.clinicCityLabel.Text = "City";
+            // 
             // clinicIdTextBox
             // 
             this.clinicIdTextBox.Enabled = false;
@@ -73,9 +84,18 @@
             this.clinicAddressTextBox.Size = new System.Drawing.Size(200, 22);
             this.clinicAddressTextBox.TabIndex = 8;
             // 
+            // clinicCityComboBox
+            // 
+            this.clinicCityComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.clinicCityComboBox.FormattingEnabled = true;
+            this.clinicCityComboBox.Location = new System.Drawing.Point(101, 102);
+            this.clinicCityComboBox.Name = "clinicCityComboBox";
+            this.clinicCityComboBox.Size = new System.Drawing.Size(200, 24);
+            this.clinicCityComboBox.TabIndex = 9;
+            // 
             // saveButton
             // 
-            this.saveButton.Location = new System.Drawing.Point(101, 100);
+            this.saveButton.Location = new System.Drawing.Point(101, 140);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(75, 23);
             this.saveButton.TabIndex = 12;
@@ -85,11 +105,13 @@
             // 
             // ClinicEditForm
             // 
-            this.ClientSize = new System.Drawing.Size(307, 135);
+            this.ClientSize = new System.Drawing.Size(307, 175);
             this.Controls.Add(this.saveButton);
+            this.Controls.Add(this.clinicCityComboBox);
             this.Controls.Add(this.clinicAddressTextBox);
             this.Controls.Add(this.clinicNameTextBox);
             this.Controls.Add(this.clinicIdTextBox);
+            this.Controls.Add(this.clinicCityLabel);
             this.Controls.Add(this.clinicAddressLabel);
             this.Controls.Add(this.clinicNameLabel);
             this.Controls.Add(this.clinicIdLabel);
@@ -102,9 +124,11 @@
         private System.Windows.Forms.Label clinicIdLabel;
         private System.Windows.Forms.Label clinicNameLabel;
         private System.Windows.Forms.Label clinicAddressLabel;
+        private System.Windows.Forms.Label clinicCityLabel;
         private System.Windows.Forms.TextBox clinicIdTextBox;
         private System.Windows.Forms.TextBox clinicNameTextBox;
         private System.Windows.Forms.TextBox clinicAddressTextBox;
+        private System.Windows.Forms.ComboBox clinicCityComboBox;
         private System.Windows.Forms.Button saveButton;
     }
 }

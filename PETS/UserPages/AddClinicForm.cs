@@ -29,7 +29,7 @@ namespace PETS.UserPages
             string address = addressTextBox.Text;
             int cityId = (int)cityComboBox.SelectedValue;
 
-            Clinic newClinic = new Clinic(0, clinicName, address, cityId);
+            Clinic newClinic = new Clinic(0, clinicName, address, cityId, ((City)cityComboBox.SelectedItem).CityName);
 
             bool success = DBConnection.AddClinic(newClinic);
             if (success)
