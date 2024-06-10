@@ -61,5 +61,11 @@ namespace PETS.UserPages
             AddClinicForm addClinicForm = new AddClinicForm();
             addClinicForm.ShowDialog();
         }
+
+        private void addCityBtn_Click(object sender, EventArgs e)
+        {
+            AddCityForm addCityForm = new AddCityForm();
+            addCityForm.ShowDialog();
+        }
     }
 }

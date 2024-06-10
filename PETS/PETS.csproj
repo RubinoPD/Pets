@@ -128,6 +128,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserPages\AddCityForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserPages\AddCityForm.Designer.cs">
+      <DependentUpon>AddCityForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserPages\AddClinicForm.cs">
       <SubType>Form</SubType>
     </Compile>

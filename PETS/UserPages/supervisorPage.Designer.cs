@@ -143,6 +143,7 @@
             this.addCityBtn.TabIndex = 8;
             this.addCityBtn.Text = "Prideti miesta";
             this.addCityBtn.UseVisualStyleBackColor = true;
+            this.addCityBtn.Click += new System.EventHandler(this.addCityBtn_Click);
             // 
             // supervisorPage
             // 
