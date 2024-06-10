@@ -176,7 +176,7 @@ namespace PETS.Classes
 
         // Breed = suo, kate, papuga etc. (naming is hard)
 
-        public static int AddPet(string name, string breed, string sex, int age, int weight, int vetID)
+        public static int AddPet(string name, string breed, string sex, int age, int weight, int chipID, int userID, int vetID, int skiepoID)
         {
             string connectionString = GetConnectionString();
             try
@@ -184,14 +184,17 @@ namespace PETS.Classes
                 using (var connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
-                    string query = "INSERT INTO gyvunas (vardas, gyv_veisle, lytis, amzius, svoris, vet_id) VALUES (@Name, @Breed, @Sex, @Age, @Weight, @VetID); SELECT LAST_INSERT_ID();";
+                    string query = "INSERT INTO gyvunas (vardas, gyv_veisle, lytis, amzius, svoris, chip_id, user_id, vet_id, skiepo_id) VALUES (@Name, @Breed, @Sex, @Age, @Weight, @ChipID, @UserID, @VetID, @SkiepoID); SELECT LAST_INSERT_ID();";
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("@Name", name);
                     cmd.Parameters.AddWithValue("@Breed", breed);
                     cmd.Parameters.AddWithValue("@Sex", sex);
                     cmd.Parameters.AddWithValue("@Age", age);
                     cmd.Parameters.AddWithValue("@Weight", weight);
+                    cmd.Parameters.AddWithValue("@ChipID", chipID);
+                    cmd.Parameters.AddWithValue("@UserID", userID);
                     cmd.Parameters.AddWithValue("@VetID", vetID);
+                    cmd.Parameters.AddWithValue("@SkiepoID", skiepoID);
                     int petID = Convert.ToInt32(cmd.ExecuteScalar());
                     return petID;
                 }
@@ -203,7 +206,7 @@ namespace PETS.Classes
             }
         }
 
-        public static bool AddUser(string name, string surname, string email, int addressID, int petID, int loginID)
+        public static int AddUser(string name, string surname, string email, int addressID, int petID, int loginID)
         {
             string connectionString = GetConnectionString();
             try
@@ -211,7 +214,7 @@ namespace PETS.Classes
                 using (var connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
-                    string query = "INSERT INTO user (vardas, pavarde, el_pastas, adreso_id, gyvuno_id, login_id) VALUES (@Name, @Surname, @Email, @AddressID, @PetID, @LoginID)";
+                    string query = "INSERT INTO user (vardas, pavarde, el_pastas, adreso_id, gyvuno_id, login_id) VALUES (@Name, @Surname, @Email, @AddressID, @PetID, @LoginID); SELECT LAST_INSERT_ID();";
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("@Name", name);
                     cmd.Parameters.AddWithValue("@Surname", surname);
@@ -219,14 +222,38 @@ namespace PETS.Classes
                     cmd.Parameters.AddWithValue("@AddressID", addressID);
                     cmd.Parameters.AddWithValue("@PetID", petID);
                     cmd.Parameters.AddWithValue("@LoginID", loginID);
-                    int result = cmd.ExecuteNonQuery();
-                    return result > 0;
+                    int userID = Convert.ToInt32(cmd.ExecuteScalar());
+                    return userID;
                 }
             }
             catch (MySqlException ex)
             {
                 MessageBox.Show("Database insertion failed: " + ex.Message, "Error", MessageBoxButtons.OK);
-                return false;
+                return -1;
+            }
+        }
+
+        public static int AddChip(int klinikosID, int vetID, DateTime date)
+        {
+            string connectionString = GetConnectionString();
+            try
+            {
+                using (var connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = "INSERT INTO cipas (klinikos_id, vet_id, data) VALUES (@KlinikosID, @VetID, @Date); SELECT LAST_INSERT_ID();";
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@KlinikosID", klinikosID);
+                    cmd.Parameters.AddWithValue("@VetID", vetID);
+                    cmd.Parameters.AddWithValue("@Date", date);
+                    int chipID = Convert.ToInt32(cmd.ExecuteScalar());
+                    return chipID;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Database insertion failed: " + ex.Message, "Error", MessageBoxButtons.OK);
+                return -1;
             }
         }
 
@@ -353,6 +380,29 @@ namespace PETS.Classes
                     cmd.Parameters.AddWithValue("@Email", supervisor.Email);
                     cmd.Parameters.AddWithValue("@SupervisorID", supervisor.SupervisorID);
 
+                    int result = cmd.ExecuteNonQuery();
+                    return result > 0;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Database update failed: " + ex.Message, "Error", MessageBoxButtons.OK);
+                return false;
+            }
+        }
+
+        public static bool UpdateUserWithPetID(int userID, int petID)
+        {
+            string connectionString = GetConnectionString();
+            try
+            {
+                using (var connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = "UPDATE user SET gyvuno_id = @PetID WHERE user_id = @UserID";
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@PetID", petID);
+                    cmd.Parameters.AddWithValue("@UserID", userID);
                     int result = cmd.ExecuteNonQuery();
                     return result > 0;
                 }
@@ -884,6 +934,28 @@ namespace PETS.Classes
                 MessageBox.Show("Database connection failed: " + ex.Message, "Error", MessageBoxButtons.OK);
             }
             return supervisor;
+        }
+
+        public static int GetUserID(string email)
+        {
+            string connectionString = GetConnectionString();
+            try
+            {
+                using (var connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = "SELECT user_id FROM user WHERE el_pastas = @Email";
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@Email", email);
+                    object result = cmd.ExecuteScalar();
+                    return result != null ? Convert.ToInt32(result) : -1;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Database query failed: " + ex.Message, "Error", MessageBoxButtons.OK);
+                return -1;
+            }
         }
 
 

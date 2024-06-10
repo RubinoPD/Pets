@@ -43,6 +43,7 @@ namespace PETS.UserPages
             int age = int.Parse(ageTextBox.Text);
             int weight = int.Parse(weightTextBox.Text);
             int vetID = (int)vetComboBox.SelectedValue;
+            DateTime chipDate = chipDatePicker.Value;
 
             // Create login credentials
             int loginID = DBConnection.AddLogin(email, password);
@@ -54,27 +55,47 @@ namespace PETS.UserPages
 
                 if (addressID != -1)
                 {
-                    // Add pet
-                    int petID = DBConnection.AddPet(petName, breed, sex, age, weight, vetID);
+                    // Add user without petID
+                    int userID = DBConnection.AddUser(name, surname, email, addressID, 0, loginID);
 
-                    if (petID != -1)
+                    if (userID != -1)
                     {
-                        // Add user
-                        bool userAdded = DBConnection.AddUser(name, surname, email, addressID, petID, loginID);
+                        // Add chip
+                        int chipID = DBConnection.AddChip(1, vetID, chipDate); // klinikos_id and vet_id are set to 1
 
-                        if (userAdded)
+                        if (chipID != -1)
                         {
-                            MessageBox.Show("User registered successfully!");
-                            this.Close();
+                            // Add pet with user_id and skiepo_id as default 1
+                            int petID = DBConnection.AddPet(petName, breed, sex, age, weight, chipID, userID, vetID, 1);
+
+                            if (petID != -1)
+                            {
+                                // Update user with petID
+                                bool userUpdated = DBConnection.UpdateUserWithPetID(userID, petID);
+
+                                if (userUpdated)
+                                {
+                                    MessageBox.Show("User and pet registered successfully!");
+                                    this.Close();
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Failed to update user with petID.");
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("Failed to add pet.");
+                            }
                         }
                         else
                         {
-                            MessageBox.Show("Failed to register user.");
+                            MessageBox.Show("Failed to add chip.");
                         }
                     }
                     else
                     {
-                        MessageBox.Show("Failed to add pet.");
+                        MessageBox.Show("Failed to register user.");
                     }
                 }
                 else

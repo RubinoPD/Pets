@@ -27,6 +27,7 @@
             this.ageLabel = new System.Windows.Forms.Label();
             this.weightLabel = new System.Windows.Forms.Label();
             this.vetLabel = new System.Windows.Forms.Label();
+            this.chipDateLabel = new System.Windows.Forms.Label();
             this.nameTextBox = new System.Windows.Forms.TextBox();
             this.surnameTextBox = new System.Windows.Forms.TextBox();
             this.emailTextBox = new System.Windows.Forms.TextBox();
@@ -39,6 +40,7 @@
             this.ageTextBox = new System.Windows.Forms.TextBox();
             this.weightTextBox = new System.Windows.Forms.TextBox();
             this.vetComboBox = new System.Windows.Forms.ComboBox();
+            this.chipDatePicker = new System.Windows.Forms.DateTimePicker();
             this.registerButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -150,40 +152,49 @@
             this.vetLabel.TabIndex = 12;
             this.vetLabel.Text = "Vet";
             // 
+            // chipDateLabel
+            // 
+            this.chipDateLabel.AutoSize = true;
+            this.chipDateLabel.Location = new System.Drawing.Point(12, 375);
+            this.chipDateLabel.Name = "chipDateLabel";
+            this.chipDateLabel.Size = new System.Drawing.Size(69, 17);
+            this.chipDateLabel.TabIndex = 13;
+            this.chipDateLabel.Text = "Chip Date";
+            // 
             // nameTextBox
             // 
             this.nameTextBox.Location = new System.Drawing.Point(100, 12);
             this.nameTextBox.Name = "nameTextBox";
             this.nameTextBox.Size = new System.Drawing.Size(200, 22);
-            this.nameTextBox.TabIndex = 13;
+            this.nameTextBox.TabIndex = 14;
             // 
             // surnameTextBox
             // 
             this.surnameTextBox.Location = new System.Drawing.Point(100, 42);
             this.surnameTextBox.Name = "surnameTextBox";
             this.surnameTextBox.Size = new System.Drawing.Size(200, 22);
-            this.surnameTextBox.TabIndex = 14;
+            this.surnameTextBox.TabIndex = 15;
             // 
             // emailTextBox
             // 
             this.emailTextBox.Location = new System.Drawing.Point(100, 72);
             this.emailTextBox.Name = "emailTextBox";
             this.emailTextBox.Size = new System.Drawing.Size(200, 22);
-            this.emailTextBox.TabIndex = 15;
+            this.emailTextBox.TabIndex = 16;
             // 
             // passwordTextBox
             // 
             this.passwordTextBox.Location = new System.Drawing.Point(100, 102);
             this.passwordTextBox.Name = "passwordTextBox";
             this.passwordTextBox.Size = new System.Drawing.Size(200, 22);
-            this.passwordTextBox.TabIndex = 16;
+            this.passwordTextBox.TabIndex = 17;
             // 
             // addressTextBox
             // 
             this.addressTextBox.Location = new System.Drawing.Point(100, 132);
             this.addressTextBox.Name = "addressTextBox";
             this.addressTextBox.Size = new System.Drawing.Size(200, 22);
-            this.addressTextBox.TabIndex = 17;
+            this.addressTextBox.TabIndex = 18;
             // 
             // cityComboBox
             // 
@@ -192,21 +203,21 @@
             this.cityComboBox.Location = new System.Drawing.Point(100, 162);
             this.cityComboBox.Name = "cityComboBox";
             this.cityComboBox.Size = new System.Drawing.Size(200, 24);
-            this.cityComboBox.TabIndex = 18;
+            this.cityComboBox.TabIndex = 19;
             // 
             // petNameTextBox
             // 
             this.petNameTextBox.Location = new System.Drawing.Point(100, 192);
             this.petNameTextBox.Name = "petNameTextBox";
             this.petNameTextBox.Size = new System.Drawing.Size(200, 22);
-            this.petNameTextBox.TabIndex = 19;
+            this.petNameTextBox.TabIndex = 20;
             // 
             // breedTextBox
             // 
             this.breedTextBox.Location = new System.Drawing.Point(100, 222);
             this.breedTextBox.Name = "breedTextBox";
             this.breedTextBox.Size = new System.Drawing.Size(200, 22);
-            this.breedTextBox.TabIndex = 20;
+            this.breedTextBox.TabIndex = 21;
             // 
             // sexComboBox
             // 
@@ -218,21 +229,21 @@
             this.sexComboBox.Location = new System.Drawing.Point(100, 252);
             this.sexComboBox.Name = "sexComboBox";
             this.sexComboBox.Size = new System.Drawing.Size(200, 24);
-            this.sexComboBox.TabIndex = 21;
+            this.sexComboBox.TabIndex = 22;
             // 
             // ageTextBox
             // 
             this.ageTextBox.Location = new System.Drawing.Point(100, 282);
             this.ageTextBox.Name = "ageTextBox";
             this.ageTextBox.Size = new System.Drawing.Size(200, 22);
-            this.ageTextBox.TabIndex = 22;
+            this.ageTextBox.TabIndex = 23;
             // 
             // weightTextBox
             // 
             this.weightTextBox.Location = new System.Drawing.Point(100, 312);
             this.weightTextBox.Name = "weightTextBox";
             this.weightTextBox.Size = new System.Drawing.Size(200, 22);
-            this.weightTextBox.TabIndex = 23;
+            this.weightTextBox.TabIndex = 24;
             // 
             // vetComboBox
             // 
@@ -241,22 +252,30 @@
             this.vetComboBox.Location = new System.Drawing.Point(100, 342);
             this.vetComboBox.Name = "vetComboBox";
             this.vetComboBox.Size = new System.Drawing.Size(200, 24);
-            this.vetComboBox.TabIndex = 24;
+            this.vetComboBox.TabIndex = 25;
+            // 
+            // chipDatePicker
+            // 
+            this.chipDatePicker.Location = new System.Drawing.Point(100, 372);
+            this.chipDatePicker.Name = "chipDatePicker";
+            this.chipDatePicker.Size = new System.Drawing.Size(200, 22);
+            this.chipDatePicker.TabIndex = 26;
             // 
             // registerButton
             // 
-            this.registerButton.Location = new System.Drawing.Point(100, 372);
+            this.registerButton.Location = new System.Drawing.Point(100, 400);
             this.registerButton.Name = "registerButton";
             this.registerButton.Size = new System.Drawing.Size(200, 23);
-            this.registerButton.TabIndex = 25;
+            this.registerButton.TabIndex = 27;
             this.registerButton.Text = "Register";
             this.registerButton.UseVisualStyleBackColor = true;
             this.registerButton.Click += new System.EventHandler(this.registerButton_Click);
             // 
             // RegisterForm
             // 
-            this.ClientSize = new System.Drawing.Size(332, 407);
+            this.ClientSize = new System.Drawing.Size(332, 435);
             this.Controls.Add(this.registerButton);
+            this.Controls.Add(this.chipDatePicker);
             this.Controls.Add(this.vetComboBox);
             this.Controls.Add(this.weightTextBox);
             this.Controls.Add(this.ageTextBox);
@@ -269,6 +288,7 @@
             this.Controls.Add(this.emailTextBox);
             this.Controls.Add(this.surnameTextBox);
             this.Controls.Add(this.nameTextBox);
+            this.Controls.Add(this.chipDateLabel);
             this.Controls.Add(this.vetLabel);
             this.Controls.Add(this.weightLabel);
             this.Controls.Add(this.ageLabel);
@@ -299,6 +319,7 @@
         private System.Windows.Forms.Label ageLabel;
         private System.Windows.Forms.Label weightLabel;
         private System.Windows.Forms.Label vetLabel;
+        private System.Windows.Forms.Label chipDateLabel;
         private System.Windows.Forms.TextBox nameTextBox;
         private System.Windows.Forms.TextBox surnameTextBox;
         private System.Windows.Forms.TextBox emailTextBox;
@@ -311,6 +332,7 @@
         private System.Windows.Forms.TextBox ageTextBox;
         private System.Windows.Forms.TextBox weightTextBox;
         private System.Windows.Forms.ComboBox vetComboBox;
+        private System.Windows.Forms.DateTimePicker chipDatePicker;
         private System.Windows.Forms.Button registerButton;
     }
 }
