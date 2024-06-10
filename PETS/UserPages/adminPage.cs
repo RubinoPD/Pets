@@ -81,5 +81,11 @@ namespace PETS.UserPages
             SupervisorAdministrationPage supervisorAdministrationPage = new SupervisorAdministrationPage();
             supervisorAdministrationPage.ShowDialog();
         }
+
+        private void addSuperUser_Click(object sender, EventArgs e)
+        {
+            AddSupervisorForm addSupervisorForm = new AddSupervisorForm();
+            addSupervisorForm.ShowDialog();
+        }
     }
 }

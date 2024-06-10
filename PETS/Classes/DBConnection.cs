@@ -99,6 +99,58 @@ namespace PETS.Classes
             }
         }
 
+        public static int AddLogin(string email, string password)
+        {
+            string connectionString = GetConnectionString();
+            try
+            {
+                using (var connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = "INSERT INTO login (email_address, password) VALUES (@Email, @Password); SELECT LAST_INSERT_ID();";
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@Email", email);
+                    cmd.Parameters.AddWithValue("@Password", password);
+
+                    int loginId = Convert.ToInt32(cmd.ExecuteScalar());
+                    return loginId;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Database insertion failed: " + ex.Message, "Error", MessageBoxButtons.OK);
+                return -1;
+            }
+        }
+
+        public static bool AddSupervisor(Supervisor supervisor)
+        {
+            string connectionString = GetConnectionString();
+            try
+            {
+                using (var connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = "INSERT INTO supervisor (name, surname, phone_nmb, login_id, role_id, email) VALUES (@Name, @Surname, @Phone, @LoginID, @RoleID, @Email)";
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@Name", supervisor.FirstName);
+                    cmd.Parameters.AddWithValue("@Surname", supervisor.LastName);
+                    cmd.Parameters.AddWithValue("@Phone", supervisor.PhoneNumber);
+                    cmd.Parameters.AddWithValue("@LoginID", supervisor.Login);
+                    cmd.Parameters.AddWithValue("@RoleID", supervisor.RoleID);
+                    cmd.Parameters.AddWithValue("@Email", supervisor.Email);
+
+                    int result = cmd.ExecuteNonQuery();
+                    return result > 0;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Database insertion failed: " + ex.Message, "Error", MessageBoxButtons.OK);
+                return false;
+            }
+        }
+
 
 
         // Update methods

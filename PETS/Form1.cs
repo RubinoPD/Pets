@@ -70,11 +70,12 @@ namespace PETS
                 try
                 {
                     connection.Open();
-                    string query = "SELECT login_id FROM login WHERE email_address=@username AND password=@password;";
+                    string query = "SELECT login_id, email_address, password FROM login WHERE email_address=@username AND password=@password;";
 
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("@username", usernameTextBox.Text);
                     cmd.Parameters.AddWithValue("@password", passwordTextBox.Text);
+
 
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {

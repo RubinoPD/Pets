@@ -157,6 +157,7 @@
             this.addSuperUser.TabIndex = 18;
             this.addSuperUser.Text = "Prideti super naudotoja";
             this.addSuperUser.UseVisualStyleBackColor = true;
+            this.addSuperUser.Click += new System.EventHandler(this.addSuperUser_Click);
             // 
             // adminPage
             // 

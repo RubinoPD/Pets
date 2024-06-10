@@ -140,6 +140,12 @@
     <Compile Include="UserPages\AddClinicForm.Designer.cs">
       <DependentUpon>AddClinicForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserPages\AddSupervisorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserPages\AddSupervisorForm.Designer.cs">
+      <DependentUpon>AddSupervisorForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserPages\AddVetForm.cs">
       <SubType>Form</SubType>
     </Compile>
