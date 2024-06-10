@@ -47,32 +47,26 @@ namespace PETS.UserPages
 
             // Create login credentials
             int loginID = DBConnection.AddLogin(email, password);
-
             if (loginID != -1)
             {
                 // Add address
                 int addressID = DBConnection.AddAddress(address, cityID);
-
                 if (addressID != -1)
                 {
                     // Add user without petID
                     int userID = DBConnection.AddUser(name, surname, email, addressID, loginID);
-
                     if (userID != -1)
                     {
                         // Add chip
                         int chipID = DBConnection.AddChip(1, vetID, chipDate); // klinikos_id and vet_id are set to 1
-
                         if (chipID != -1)
                         {
                             // Add pet with user_id and skiepo_id as default 1
                             int petID = DBConnection.AddPet(petName, breed, sex, age, weight, chipID, userID, vetID, 1);
-
                             if (petID != -1)
                             {
                                 // Update user with petID
                                 bool userUpdated = DBConnection.UpdateUserWithPetID(userID, petID);
-
                                 if (userUpdated)
                                 {
                                     MessageBox.Show("User and pet registered successfully!");
@@ -108,5 +102,6 @@ namespace PETS.UserPages
                 MessageBox.Show("Failed to create login credentials.");
             }
         }
+
     }
 }

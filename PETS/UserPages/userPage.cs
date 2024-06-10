@@ -31,7 +31,7 @@ namespace PETS.UserPages
 
         private void DisplayUserInfo()
         {
-            //userLabel.Text = _userInfo.FirstName;
+       
             userInformationLabel.Text = "Sveiki prisijunge, " + _userInfo.FirstName + " " + _userInfo.LastName + "!";
             userEmailLabel.Text = "Jusu pastas: " + _userInfo.Email;
 
@@ -48,12 +48,8 @@ namespace PETS.UserPages
 
             // Fetch and display pet info
 
-
-
-            _pet = DBConnection.GetPet(_userInfo.PetsID);
-            //_chip = DBConnection.GetChip(_pet.ChipID);
-            //_vaccine = DBConnection.GetVaccine(_pet.VaccineID);
-            //_vet = DBConnection.GetVet(_pet.VetID);
+            _pet = DBConnection.GetPet(_userInfo.UserId);
+            
 
             if ( _pet != null )
             {

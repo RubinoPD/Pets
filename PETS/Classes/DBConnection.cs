@@ -495,15 +495,14 @@ namespace PETS.Classes
         {
             Pet pet = null;
             string connectionString = GetConnectionString();
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            try
             {
-                try
+                using (var connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
                     string query = "SELECT gyvuno_id, gyv_veisle, lytis, amzius, svoris, chip_id, user_id, skiepo_id, vardas, vet_id FROM gyvunas WHERE gyvuno_id=@petID;";
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("@petID", petID);
-
                     MySqlDataReader reader = cmd.ExecuteReader();
                     if (reader.HasRows)
                     {
@@ -521,10 +520,10 @@ namespace PETS.Classes
                         pet = new Pet(pet_id, breed, sex, age, weight, chipID, userID, vaccineID, name, vetID);
                     }
                 }
-                catch (MySqlException ex)
-                {
-                    MessageBox.Show("Database connection failed: " + ex.Message, "Error", MessageBoxButtons.OK);
-                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Database connection failed: " + ex.Message, "Error", MessageBoxButtons.OK);
             }
             return pet;
         }

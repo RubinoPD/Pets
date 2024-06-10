@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PETS.Classes
 {
-    public class RegularUser : User
+    public class RegularUser 
     {
 
         public int UserId {get; set;}
@@ -16,10 +16,16 @@ namespace PETS.Classes
         public int PetsID {  get; set;}
         public string Address { get; set; } 
         public string PetName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public int LoginID { get; set; }
 
         public RegularUser(string firstName, string lastName, int login_id, int userID, int petsID, string email, int addressID)
-            : base(firstName, lastName, login_id) // Call to base class constructor
+        
         {
+            this.FirstName = firstName;
+            this.LastName = lastName;
+            this.LoginID = login_id;
             this.UserId = userID;
             this.Email = email;
             this.AddressID = addressID;
