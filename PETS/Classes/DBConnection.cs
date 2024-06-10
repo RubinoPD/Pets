@@ -761,21 +761,43 @@ namespace PETS.Classes
         public static bool DeleteUser(int userId)
         {
             string connectionString = GetConnectionString();
+            MySqlTransaction transaction = null;
             try
             {
                 using (var connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
-                    string query = "DELETE FROM user WHERE user_id = @UserId";
-                    MySqlCommand cmd = new MySqlCommand(query, connection);
-                    cmd.Parameters.AddWithValue("@UserId", userId);
+                    transaction = connection.BeginTransaction();
 
-                    int result = cmd.ExecuteNonQuery();
-                    return result > 0;
+                    // Get the login_id for the user
+                    int loginId = -1;
+                    string getLoginIdQuery = "SELECT login_id FROM users WHERE user_id = @UserId";
+                    MySqlCommand getLoginIdCmd = new MySqlCommand(getLoginIdQuery, connection);
+                    getLoginIdCmd.Parameters.AddWithValue("@UserId", userId);
+                    loginId = Convert.ToInt32(getLoginIdCmd.ExecuteScalar());
+
+                    // Delete the user
+                    string deleteUserQuery = "DELETE FROM users WHERE user_id = @UserId";
+                    MySqlCommand deleteUserCmd = new MySqlCommand(deleteUserQuery, connection);
+                    deleteUserCmd.Parameters.AddWithValue("@UserId", userId);
+                    deleteUserCmd.ExecuteNonQuery();
+
+                    // Delete the login information
+                    if (loginId != -1)
+                    {
+                        string deleteLoginQuery = "DELETE FROM login WHERE login_id = @LoginId";
+                        MySqlCommand deleteLoginCmd = new MySqlCommand(deleteLoginQuery, connection);
+                        deleteLoginCmd.Parameters.AddWithValue("@LoginId", loginId);
+                        deleteLoginCmd.ExecuteNonQuery();
+                    }
+
+                    transaction.Commit();
+                    return true;
                 }
             }
             catch (MySqlException ex)
             {
+                transaction?.Rollback();
                 MessageBox.Show("Database deletion failed: " + ex.Message, "Error", MessageBoxButtons.OK);
                 return false;
             }
@@ -829,25 +851,48 @@ namespace PETS.Classes
         public static bool DeleteSupervisor(int supervisorId)
         {
             string connectionString = GetConnectionString();
+            MySqlTransaction transaction = null;
             try
             {
                 using (var connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
-                    string query = "DELETE FROM supervisor WHERE supervisor_id = @SupervisorID";
-                    MySqlCommand cmd = new MySqlCommand(query, connection);
-                    cmd.Parameters.AddWithValue("@SupervisorID", supervisorId);
+                    transaction = connection.BeginTransaction();
 
-                    int result = cmd.ExecuteNonQuery();
-                    return result > 0;
+                    // Get the login_id for the supervisor
+                    int loginId = -1;
+                    string getLoginIdQuery = "SELECT login_id FROM supervisor WHERE supervisor_id = @SupervisorId";
+                    MySqlCommand getLoginIdCmd = new MySqlCommand(getLoginIdQuery, connection);
+                    getLoginIdCmd.Parameters.AddWithValue("@SupervisorId", supervisorId);
+                    loginId = Convert.ToInt32(getLoginIdCmd.ExecuteScalar());
+
+                    // Delete the supervisor
+                    string deleteSupervisorQuery = "DELETE FROM supervisor WHERE supervisor_id = @SupervisorId";
+                    MySqlCommand deleteSupervisorCmd = new MySqlCommand(deleteSupervisorQuery, connection);
+                    deleteSupervisorCmd.Parameters.AddWithValue("@SupervisorId", supervisorId);
+                    deleteSupervisorCmd.ExecuteNonQuery();
+
+                    // Delete the login information
+                    if (loginId != -1)
+                    {
+                        string deleteLoginQuery = "DELETE FROM login WHERE login_id = @LoginId";
+                        MySqlCommand deleteLoginCmd = new MySqlCommand(deleteLoginQuery, connection);
+                        deleteLoginCmd.Parameters.AddWithValue("@LoginId", loginId);
+                        deleteLoginCmd.ExecuteNonQuery();
+                    }
+
+                    transaction.Commit();
+                    return true;
                 }
             }
             catch (MySqlException ex)
             {
+                transaction?.Rollback();
                 MessageBox.Show("Database deletion failed: " + ex.Message, "Error", MessageBoxButtons.OK);
                 return false;
             }
         }
+
 
 
     }
