@@ -15,10 +15,12 @@ namespace PETS.UserPages
     {
 
         private Supervisor _supervisorInfo;
-        public supervisorPage(Supervisor supervisorInfo)
+        Form1 _loginForm;
+        public supervisorPage(Supervisor supervisorInfo, Form1 loginForm)
         {
             InitializeComponent();
             _supervisorInfo = supervisorInfo;
+            _loginForm = loginForm;
             DisplayUserInfo();
         }
 
@@ -66,6 +68,14 @@ namespace PETS.UserPages
         {
             AddCityForm addCityForm = new AddCityForm();
             addCityForm.ShowDialog();
+        }
+
+        private void logoutBtn_Click(object sender, EventArgs e)
+        {
+            // Close the current form and show the login form
+            this.Close();
+            //Form1 loginForm = new Form1();
+            _loginForm.Show();
         }
     }
 }

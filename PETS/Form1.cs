@@ -135,7 +135,7 @@ namespace PETS
 
                                             reader3.Close();
                                             //Open supervisorPage page
-                                            supervisorPage supervisorPage = new supervisorPage(supervisor);
+                                            supervisorPage supervisorPage = new supervisorPage(supervisor, this);
                                             supervisorPage.Show();
                                             this.Hide();
 

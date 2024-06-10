@@ -108,6 +108,7 @@
             this.logoutBtn.TabIndex = 5;
             this.logoutBtn.Text = "Atsijungti";
             this.logoutBtn.UseVisualStyleBackColor = true;
+            this.logoutBtn.Click += new System.EventHandler(this.logoutBtn_Click);
             // 
             // addVetBtn
             // 
