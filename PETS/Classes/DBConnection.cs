@@ -206,6 +206,33 @@ namespace PETS.Classes
             }
         }
 
+        public static bool UpdateSupervisor(Supervisor supervisor)
+        {
+            string connectionString = GetConnectionString();
+            try
+            {
+                using (var connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = "UPDATE supervisor SET name = @Name, surname = @Surname, phone_nmb = @PhoneNmb, email = @Email WHERE supervisor_id = @SupervisorID";
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@Name", supervisor.FirstName);
+                    cmd.Parameters.AddWithValue("@Surname", supervisor.LastName);
+                    cmd.Parameters.AddWithValue("@PhoneNmb", supervisor.PhoneNumber);
+                    cmd.Parameters.AddWithValue("@Email", supervisor.Email);
+                    cmd.Parameters.AddWithValue("@SupervisorID", supervisor.SupervisorID);
+
+                    int result = cmd.ExecuteNonQuery();
+                    return result > 0;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Database update failed: " + ex.Message, "Error", MessageBoxButtons.OK);
+                return false;
+            }
+        }
+
         // Get methods
 
         public static RegularUser GetUserById(int userId)
@@ -660,6 +687,74 @@ namespace PETS.Classes
             return cities;
         }
 
+        public static List<Supervisor> GetAllSupervisors()
+        {
+            List<Supervisor> supervisors = new List<Supervisor>();
+            string connectionString = GetConnectionString();
+            try
+            {
+                using (var connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = "SELECT supervisor_id, name, surname, phone_nmb, login_id, role_id, email FROM supervisor";
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        int supervisorID = reader.GetInt32("supervisor_id");
+                        string name = reader.GetString("name");
+                        string surname = reader.GetString("surname");
+                        int phoneNmb = reader.GetInt32("phone_nmb");
+                        int loginID = reader.GetInt32("login_id");
+                        int roleID = reader.GetInt32("role_id");
+                        string email = reader.GetString("email");
+
+                        Supervisor supervisor = new Supervisor(name, surname, loginID, supervisorID, roleID, phoneNmb, email);
+                        supervisors.Add(supervisor);
+                    }
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Database connection failed: " + ex.Message, "Error", MessageBoxButtons.OK);
+            }
+            return supervisors;
+        }
+
+        public static Supervisor GetSupervisorById(int supervisorId)
+        {
+            Supervisor supervisor = null;
+            string connectionString = GetConnectionString();
+            try
+            {
+                using (var connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = "SELECT supervisor_id, name, surname, phone_nmb, login_id, role_id, email FROM supervisor WHERE supervisor_id = @SupervisorID";
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@SupervisorID", supervisorId);
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        int id = reader.GetInt32("supervisor_id");
+                        string name = reader.GetString("name");
+                        string surname = reader.GetString("surname");
+                        int phoneNmb = reader.GetInt32("phone_nmb");
+                        int loginID = reader.GetInt32("login_id");
+                        int roleID = reader.GetInt32("role_id");
+                        string email = reader.GetString("email");
+
+                        supervisor = new Supervisor(name, surname, loginID, id, roleID, phoneNmb, email);
+                    }
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Database connection failed: " + ex.Message, "Error", MessageBoxButtons.OK);
+            }
+            return supervisor;
+        }
+
 
         // Delete methods
 
@@ -719,6 +814,29 @@ namespace PETS.Classes
                     string query = "DELETE FROM klinikos WHERE klinikos_id = @ClinicID";
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("@ClinicID", clinicId);
+
+                    int result = cmd.ExecuteNonQuery();
+                    return result > 0;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Database deletion failed: " + ex.Message, "Error", MessageBoxButtons.OK);
+                return false;
+            }
+        }
+
+        public static bool DeleteSupervisor(int supervisorId)
+        {
+            string connectionString = GetConnectionString();
+            try
+            {
+                using (var connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = "DELETE FROM supervisor WHERE supervisor_id = @SupervisorID";
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@SupervisorID", supervisorId);
 
                     int result = cmd.ExecuteNonQuery();
                     return result > 0;

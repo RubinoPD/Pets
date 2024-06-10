@@ -36,6 +36,8 @@
             this.userAdministration = new System.Windows.Forms.Button();
             this.notificationLabel = new System.Windows.Forms.Label();
             this.logoutBtn = new System.Windows.Forms.Button();
+            this.superAdministration = new System.Windows.Forms.Button();
+            this.addSuperUser = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // addCityBtn
@@ -133,11 +135,36 @@
             this.logoutBtn.UseVisualStyleBackColor = true;
             this.logoutBtn.Click += new System.EventHandler(this.logoutBtn_Click);
             // 
+            // superAdministration
+            // 
+            this.superAdministration.AccessibleName = "superAdministration";
+            this.superAdministration.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.superAdministration.Location = new System.Drawing.Point(146, 356);
+            this.superAdministration.Name = "superAdministration";
+            this.superAdministration.Size = new System.Drawing.Size(228, 47);
+            this.superAdministration.TabIndex = 17;
+            this.superAdministration.Text = "Administruoti super naudotojus";
+            this.superAdministration.UseVisualStyleBackColor = true;
+            this.superAdministration.Click += new System.EventHandler(this.superAdministration_Click);
+            // 
+            // addSuperUser
+            // 
+            this.addSuperUser.AccessibleName = "addSuperUser";
+            this.addSuperUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addSuperUser.Location = new System.Drawing.Point(427, 356);
+            this.addSuperUser.Name = "addSuperUser";
+            this.addSuperUser.Size = new System.Drawing.Size(228, 47);
+            this.addSuperUser.TabIndex = 18;
+            this.addSuperUser.Text = "Prideti super naudotoja";
+            this.addSuperUser.UseVisualStyleBackColor = true;
+            // 
             // adminPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.addSuperUser);
+            this.Controls.Add(this.superAdministration);
             this.Controls.Add(this.logoutBtn);
             this.Controls.Add(this.notificationLabel);
             this.Controls.Add(this.addCityBtn);
@@ -163,5 +190,7 @@
         private System.Windows.Forms.Button userAdministration;
         private System.Windows.Forms.Label notificationLabel;
         private System.Windows.Forms.Button logoutBtn;
+        private System.Windows.Forms.Button superAdministration;
+        private System.Windows.Forms.Button addSuperUser;
     }
 }

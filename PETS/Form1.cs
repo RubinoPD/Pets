@@ -131,7 +131,8 @@ namespace PETS
                                             int phoneNmb = reader3.GetInt32(reader3.GetOrdinal("phone_nmb"));
                                             int roleID = reader3.GetInt32(reader3.GetOrdinal("role_id"));
                                             int login_id = reader3.GetInt32(reader3.GetOrdinal("login_id"));
-                                            Supervisor supervisor = new Supervisor(firstName, lastName, login_id, supervisorID, roleID, phoneNmb);
+                                            string email = reader.GetString("email");
+                                            Supervisor supervisor = new Supervisor(firstName, lastName, login_id, supervisorID, roleID, phoneNmb, email);
 
                                             reader3.Close();
                                             //Open supervisorPage page

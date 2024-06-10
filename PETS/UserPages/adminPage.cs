@@ -75,5 +75,11 @@ namespace PETS.UserPages
             //Form1 loginForm = new Form1();
             _loginForm.Show();
         }
+
+        private void superAdministration_Click(object sender, EventArgs e)
+        {
+            SupervisorAdministrationPage supervisorAdministrationPage = new SupervisorAdministrationPage();
+            supervisorAdministrationPage.ShowDialog();
+        }
     }
 }
