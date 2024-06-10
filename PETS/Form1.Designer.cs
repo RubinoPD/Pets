@@ -34,6 +34,7 @@
             this.passwordTextBox = new System.Windows.Forms.TextBox();
             this.loginBtn = new System.Windows.Forms.Button();
             this.testCon = new System.Windows.Forms.Button();
+            this.registerBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // username
@@ -102,11 +103,24 @@
             this.testCon.UseVisualStyleBackColor = true;
             this.testCon.Click += new System.EventHandler(this.testCon_Click);
             // 
+            // registerBtn
+            // 
+            this.registerBtn.AccessibleName = "registerBtn";
+            this.registerBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.registerBtn.Location = new System.Drawing.Point(357, 328);
+            this.registerBtn.Name = "registerBtn";
+            this.registerBtn.Size = new System.Drawing.Size(188, 36);
+            this.registerBtn.TabIndex = 6;
+            this.registerBtn.Text = "Registruotis";
+            this.registerBtn.UseVisualStyleBackColor = true;
+            this.registerBtn.Click += new System.EventHandler(this.registerBtn_Click_1);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.registerBtn);
             this.Controls.Add(this.testCon);
             this.Controls.Add(this.loginBtn);
             this.Controls.Add(this.passwordTextBox);
@@ -128,6 +142,7 @@
         private System.Windows.Forms.TextBox passwordTextBox;
         private System.Windows.Forms.Button loginBtn;
         private System.Windows.Forms.Button testCon;
+        private System.Windows.Forms.Button registerBtn;
     }
 }
 

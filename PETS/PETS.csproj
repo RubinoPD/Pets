@@ -176,6 +176,12 @@
     <Compile Include="UserPages\EditUserForm.Designer.cs">
       <DependentUpon>EditUserForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserPages\RegisterForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserPages\RegisterForm.Designer.cs">
+      <DependentUpon>RegisterForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserPages\SupervisorAdministrationPage.cs">
       <SubType>Form</SubType>
     </Compile>

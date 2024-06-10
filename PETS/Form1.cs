@@ -177,7 +177,16 @@ namespace PETS
             }
         }
 
+        /* private void registerBtn_Click(object sender, EventArgs e)
+        {
+            RegisterForm registerForm = new RegisterForm();
+            registerForm.ShowDialog();
+        } */
 
-
+        private void registerBtn_Click_1(object sender, EventArgs e)
+        {
+            RegisterForm registerForm = new RegisterForm();
+            registerForm.ShowDialog();
+        }
     }
 }

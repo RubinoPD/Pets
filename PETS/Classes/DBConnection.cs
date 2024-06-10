@@ -151,6 +151,85 @@ namespace PETS.Classes
             }
         }
 
+        public static int AddAddress(string address, int cityID)
+        {
+            string connectionString = GetConnectionString();
+            try
+            {
+                using (var connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = "INSERT INTO adresas (adresas, miesto_id) VALUES (@Address, @CityID); SELECT LAST_INSERT_ID();";
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@Address", address);
+                    cmd.Parameters.AddWithValue("@CityID", cityID);
+                    int addressID = Convert.ToInt32(cmd.ExecuteScalar());
+                    return addressID;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Database insertion failed: " + ex.Message, "Error", MessageBoxButtons.OK);
+                return -1;
+            }
+        }
+
+        // Breed = suo, kate, papuga etc. (naming is hard)
+
+        public static int AddPet(string name, string breed, string sex, int age, int weight, int vetID)
+        {
+            string connectionString = GetConnectionString();
+            try
+            {
+                using (var connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = "INSERT INTO gyvunas (vardas, gyv_veisle, lytis, amzius, svoris, vet_id) VALUES (@Name, @Breed, @Sex, @Age, @Weight, @VetID); SELECT LAST_INSERT_ID();";
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@Name", name);
+                    cmd.Parameters.AddWithValue("@Breed", breed);
+                    cmd.Parameters.AddWithValue("@Sex", sex);
+                    cmd.Parameters.AddWithValue("@Age", age);
+                    cmd.Parameters.AddWithValue("@Weight", weight);
+                    cmd.Parameters.AddWithValue("@VetID", vetID);
+                    int petID = Convert.ToInt32(cmd.ExecuteScalar());
+                    return petID;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Database insertion failed: " + ex.Message, "Error", MessageBoxButtons.OK);
+                return -1;
+            }
+        }
+
+        public static bool AddUser(string name, string surname, string email, int addressID, int petID, int loginID)
+        {
+            string connectionString = GetConnectionString();
+            try
+            {
+                using (var connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = "INSERT INTO user (vardas, pavarde, el_pastas, adreso_id, gyvuno_id, login_id) VALUES (@Name, @Surname, @Email, @AddressID, @PetID, @LoginID)";
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@Name", name);
+                    cmd.Parameters.AddWithValue("@Surname", surname);
+                    cmd.Parameters.AddWithValue("@Email", email);
+                    cmd.Parameters.AddWithValue("@AddressID", addressID);
+                    cmd.Parameters.AddWithValue("@PetID", petID);
+                    cmd.Parameters.AddWithValue("@LoginID", loginID);
+                    int result = cmd.ExecuteNonQuery();
+                    return result > 0;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Database insertion failed: " + ex.Message, "Error", MessageBoxButtons.OK);
+                return false;
+            }
+        }
+
 
 
         // Update methods
