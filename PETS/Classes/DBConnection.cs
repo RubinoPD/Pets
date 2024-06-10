@@ -51,6 +51,31 @@ namespace PETS.Classes
             }
         }
 
+        public static bool AddClinic(Clinic clinic)
+        {
+            string connectionString = GetConnectionString();
+            try
+            {
+                using (var connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = "INSERT INTO klinikos (pavadinimas, adresas, miesto_id) VALUES (@ClinicName, @Address, @CityID)";
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@ClinicName", clinic.ClinicName);
+                    cmd.Parameters.AddWithValue("@Address", clinic.Address);
+                    cmd.Parameters.AddWithValue("@CityID", clinic.CityID);
+
+                    int result = cmd.ExecuteNonQuery();
+                    return result > 0;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Database insertion failed: " + ex.Message, "Error", MessageBoxButtons.OK);
+                return false;
+            }
+        }
+
 
         // Update methods
 
@@ -529,7 +554,7 @@ namespace PETS.Classes
                         string clinicAddress = reader.GetString("adresas");
                         // int cityID = reader.GetInt32("miesto_id");
 
-                        Clinic clinic = new Clinic(clinicID, clinicName, clinicAddress);
+                        Clinic clinic = new Clinic(clinicID, clinicName, clinicAddress, 0);
                         clinics.Add(clinic);
                     }
                 }
@@ -560,7 +585,7 @@ namespace PETS.Classes
                         string name = reader.GetString("pavadinimas");
                         string address = reader.GetString("adresas");
 
-                        clinic = new Clinic(id, name, address);
+                        clinic = new Clinic(id, name, address, 0);
                     }
                 }
             }
@@ -569,6 +594,35 @@ namespace PETS.Classes
                 MessageBox.Show("Database connection failed: " + ex.Message, "Error", MessageBoxButtons.OK);
             }
             return clinic;
+        }
+
+        public static List<City> GetAllCities()
+        {
+            List<City> cities = new List<City>();
+            string connectionString = GetConnectionString();
+            try
+            {
+                using (var connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = "SELECT miesto_id, pavadinimas FROM miestai";
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        int cityID = reader.GetInt32("miesto_id");
+                        string cityName = reader.GetString("pavadinimas");
+
+                        City city = new City(cityID, cityName);
+                        cities.Add(city);
+                    }
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Database connection failed: " + ex.Message, "Error", MessageBoxButtons.OK);
+            }
+            return cities;
         }
 
 

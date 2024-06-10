@@ -55,5 +55,11 @@ namespace PETS.UserPages
             AddVetForm addVetForm = new AddVetForm();
             addVetForm.ShowDialog();
         }
+
+        private void addClinicBtn_Click(object sender, EventArgs e)
+        {
+            AddClinicForm addClinicForm = new AddClinicForm();
+            addClinicForm.ShowDialog();
+        }
     }
 }

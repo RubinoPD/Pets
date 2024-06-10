@@ -131,6 +131,7 @@
             this.addClinicBtn.TabIndex = 7;
             this.addClinicBtn.Text = "Prideti klinika";
             this.addClinicBtn.UseVisualStyleBackColor = true;
+            this.addClinicBtn.Click += new System.EventHandler(this.addClinicBtn_Click);
             // 
             // addCityBtn
             // 
