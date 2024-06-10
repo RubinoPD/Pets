@@ -206,7 +206,7 @@ namespace PETS.Classes
             }
         }
 
-        public static int AddUser(string name, string surname, string email, int addressID, int petID, int loginID)
+        public static int AddUser(string name, string surname, string email, int addressID, int loginID)
         {
             string connectionString = GetConnectionString();
             try
@@ -214,13 +214,12 @@ namespace PETS.Classes
                 using (var connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
-                    string query = "INSERT INTO user (vardas, pavarde, el_pastas, adreso_id, gyvuno_id, login_id) VALUES (@Name, @Surname, @Email, @AddressID, @PetID, @LoginID); SELECT LAST_INSERT_ID();";
+                    string query = "INSERT INTO user (vardas, pavarde, el_pastas, adreso_id, login_id) VALUES (@Name, @Surname, @Email, @AddressID, @LoginID); SELECT LAST_INSERT_ID();";
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("@Name", name);
                     cmd.Parameters.AddWithValue("@Surname", surname);
                     cmd.Parameters.AddWithValue("@Email", email);
                     cmd.Parameters.AddWithValue("@AddressID", addressID);
-                    cmd.Parameters.AddWithValue("@PetID", petID);
                     cmd.Parameters.AddWithValue("@LoginID", loginID);
                     int userID = Convert.ToInt32(cmd.ExecuteScalar());
                     return userID;
@@ -232,6 +231,7 @@ namespace PETS.Classes
                 return -1;
             }
         }
+
 
         public static int AddChip(int klinikosID, int vetID, DateTime date)
         {
@@ -538,9 +538,9 @@ namespace PETS.Classes
                 try
                 {
                     connection.Open();
-                    string query = "SELECT chip_id, klinikos_id, vet_id, data FROM cipas WHERE chip_id=@chipID;";
+                    string query = "SELECT * FROM cipas WHERE chip_id=@ChipID;";
                     MySqlCommand cmd = new MySqlCommand(query, connection);
-                    cmd.Parameters.AddWithValue("@chipID", chipID);
+                    cmd.Parameters.AddWithValue("@ChipID", chipID);
 
                     MySqlDataReader reader = cmd.ExecuteReader();
                     if (reader.HasRows)

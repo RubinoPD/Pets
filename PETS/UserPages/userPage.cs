@@ -48,26 +48,61 @@ namespace PETS.UserPages
 
             // Fetch and display pet info
 
+
+
             _pet = DBConnection.GetPet(_userInfo.PetsID);
-            _chip = DBConnection.GetChip(_pet.ChipID);
-            _vaccine = DBConnection.GetVaccine(_pet.VaccineID);
-            _vet = DBConnection.GetVet(_pet.VetID);
+            //_chip = DBConnection.GetChip(_pet.ChipID);
+            //_vaccine = DBConnection.GetVaccine(_pet.VaccineID);
+            //_vet = DBConnection.GetVet(_pet.VetID);
 
             if ( _pet != null )
             {
                 petsNameLabel.Text = $"Jusu gyvuno vardas: {_pet.Name}";
                 petsAgeLabel.Text = $"Jusu gyvuno amzius: {_pet.Age}";
-                petsChipLabel.Text = $"Jusu gyvuno cipo data: {_chip.Date.ToString("MM/dd/yyyy")}";
-                petsVaccineDateLabel.Text = $"Paskutines vakcinacijos data: {_vaccine.VaccineDate.ToString("MM/dd/yyyy")}";
-                petsNextVaccineDateLabel.Text = $"Kitos vakcinacijos data: {_vaccine.NextVaccineDate.ToString("MM/dd/yyyy")}";
-                petsVetName.Text = $"Veterinaras: {_vet.VetName} {_vet.VetLastName}";
+                
+                
+                
+
+                // Get the chip information
+                _chip = DBConnection.GetChip(_pet.ChipID);
+
+                if (_chip != null)
+                {
+                    petsChipLabel.Text = $"Jusu gyvuno cipo data: {_chip.Date.ToString("MM/dd/yyyy")}";
+                } else
+                {
+                    petsChipLabel.Text = "N/A";
+                }
+
+                _vaccine = DBConnection.GetVaccine(_pet.VaccineID);
+
+                if (_vaccine != null )
+                {
+                    petsVaccineDateLabel.Text = $"Paskutines vakcinacijos data: {_vaccine.VaccineDate.ToString("MM/dd/yyyy")}";
+                    petsNextVaccineDateLabel.Text = $"Kitos vakcinacijos data: {_vaccine.NextVaccineDate.ToString("MM/dd/yyyy")}";
+                } else
+                {
+                    petsVaccineDateLabel.Text = "N/A";
+                    petsNextVaccineDateLabel.Text = "N/A";
+                }
+
+                _vet = DBConnection.GetVet(_pet.VetID);
+
+                if ( _vet != null )
+                {
+                    petsVetName.Text = $"Veterinaras: {_vet.VetName} {_vet.VetLastName}";
+                } else
+                {
+                    petsVetName.Text = "N/A";
+                };
+
             } else
             {
                 petsNameLabel.Text = "Deja, neturite prideto gyvuno";
                 petsAgeLabel.Visible = false;
                 petsChipLabel.Visible = false;
                 petsVaccineDateLabel.Visible = false;
-                petsNextVaccineDateLabel.Visible= false;
+                petsNextVaccineDateLabel.Visible = false;
                 petsVetName.Visible = false;
             }
 

@@ -56,7 +56,7 @@ namespace PETS.UserPages
                 if (addressID != -1)
                 {
                     // Add user without petID
-                    int userID = DBConnection.AddUser(name, surname, email, addressID, 0, loginID);
+                    int userID = DBConnection.AddUser(name, surname, email, addressID, loginID);
 
                     if (userID != -1)
                     {
