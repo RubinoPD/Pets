@@ -902,13 +902,13 @@ namespace PETS.Classes
 
                     // Get the login_id for the user
                     int loginId = -1;
-                    string getLoginIdQuery = "SELECT login_id FROM users WHERE user_id = @UserId";
+                    string getLoginIdQuery = "SELECT login_id FROM user WHERE user_id = @UserId";
                     MySqlCommand getLoginIdCmd = new MySqlCommand(getLoginIdQuery, connection);
                     getLoginIdCmd.Parameters.AddWithValue("@UserId", userId);
                     loginId = Convert.ToInt32(getLoginIdCmd.ExecuteScalar());
 
                     // Delete the user
-                    string deleteUserQuery = "DELETE FROM users WHERE user_id = @UserId";
+                    string deleteUserQuery = "DELETE FROM user WHERE user_id = @UserId";
                     MySqlCommand deleteUserCmd = new MySqlCommand(deleteUserQuery, connection);
                     deleteUserCmd.Parameters.AddWithValue("@UserId", userId);
                     deleteUserCmd.ExecuteNonQuery();
