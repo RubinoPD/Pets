@@ -119,6 +119,7 @@
             this.addVetBtn.TabIndex = 6;
             this.addVetBtn.Text = "Prideti veterinara";
             this.addVetBtn.UseVisualStyleBackColor = true;
+            this.addVetBtn.Click += new System.EventHandler(this.addVetBtn_Click);
             // 
             // addClinicBtn
             // 

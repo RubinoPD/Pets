@@ -49,5 +49,11 @@ namespace PETS.UserPages
             ClinicAdministrationPage clinicAdministrationPage = new ClinicAdministrationPage();
             clinicAdministrationPage.ShowDialog();
         }
+
+        private void addVetBtn_Click(object sender, EventArgs e)
+        {
+            AddVetForm addVetForm = new AddVetForm();
+            addVetForm.ShowDialog();
+        }
     }
 }

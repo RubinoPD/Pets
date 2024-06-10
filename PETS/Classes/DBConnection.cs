@@ -24,7 +24,35 @@ namespace PETS.Classes
             return connectionString;
         }
 
-        // Update functions
+        // Add methods
+
+        public static bool AddVet(Vet vet)
+        {
+            string connectionString = GetConnectionString();
+            try
+            {
+                using (var connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = "INSERT INTO veterinaras (vardas, pavarde, klinikos_id) VALUES (@FirstName, @LastName, @ClinicID)";
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@FirstName", vet.VetName);
+                    cmd.Parameters.AddWithValue("@LastName", vet.VetLastName);
+                    cmd.Parameters.AddWithValue("@ClinicID", vet.CliniID);
+
+                    int result = cmd.ExecuteNonQuery();
+                    return result > 0;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Database insertion failed: " + ex.Message, "Error", MessageBoxButtons.OK);
+                return false;
+            }
+        }
+
+
+        // Update methods
 
         public static bool UpdateUser(RegularUser user)
         {
@@ -128,7 +156,7 @@ namespace PETS.Classes
             }
         }
 
-        // Get functions
+        // Get methods
 
         public static RegularUser GetUserById(int userId)
         {
@@ -544,7 +572,7 @@ namespace PETS.Classes
         }
 
 
-        // Delete functions
+        // Delete methods
 
         public static bool DeleteUser(int userId)
         {
