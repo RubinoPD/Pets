@@ -61,7 +61,7 @@ namespace PETS.UserPages
                     }
                     else
                     {
-                        MessageBox.Show("Failed to delete user.");
+                        MessageBox.Show("Failed to delete user.", "Error", MessageBoxButtons.OK);
                     }
                 }
             }

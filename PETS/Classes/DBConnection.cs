@@ -971,12 +971,25 @@ namespace PETS.Classes
                     connection.Open();
                     transaction = connection.BeginTransaction();
 
+                    // Set user's gyvuno_id to NULL to break the foreign key constraint
+                    string updateUserQuery = "UPDATE user SET gyvuno_id = NULL WHERE user_id = @UserId";
+                    MySqlCommand updateUserCmd = new MySqlCommand(updateUserQuery, connection, transaction);
+                    updateUserCmd.Parameters.AddWithValue("@UserId", userId);
+                    updateUserCmd.ExecuteNonQuery();
+
+                    // Delete associated pets
+                    string deletePetsQuery = "DELETE FROM gyvunas WHERE user_id = @UserId";
+                    MySqlCommand deletePetsCmd = new MySqlCommand(deletePetsQuery, connection, transaction);
+                    deletePetsCmd.Parameters.AddWithValue("@UserId", userId);
+                    deletePetsCmd.ExecuteNonQuery();
+
                     // Get the login_id for the user
                     int loginId = -1;
                     string getLoginIdQuery = "SELECT login_id FROM user WHERE user_id = @UserId";
                     MySqlCommand getLoginIdCmd = new MySqlCommand(getLoginIdQuery, connection);
                     getLoginIdCmd.Parameters.AddWithValue("@UserId", userId);
                     loginId = Convert.ToInt32(getLoginIdCmd.ExecuteScalar());
+
 
                     // Delete the user
                     string deleteUserQuery = "DELETE FROM user WHERE user_id = @UserId";
