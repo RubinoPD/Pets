@@ -27,6 +27,19 @@ namespace PETS.UserPages
 
         private void saveButton_Click(object sender, EventArgs e)
         {
+
+            int userID = Convert.ToInt32(userIdTextBox.Text);
+            string newEmail = emailTextBox.Text;
+
+            bool emailUpdated = DBConnection.UpdateUserEmail(userID, newEmail);
+
+            if (emailUpdated)
+            {
+                MessageBox.Show("Email updated successfully!", "Success", MessageBoxButtons.OK);
+            } else
+            {
+                MessageBox.Show("Failed to update user email!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             // Update user info
             _user.FirstName = firstNameTextBox.Text;
             _user.LastName = lastNameTextBox.Text;

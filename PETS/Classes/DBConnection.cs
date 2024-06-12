@@ -261,6 +261,58 @@ namespace PETS.Classes
 
         // Update methods
 
+        public static bool UpdateUserEmail(int userId, string newEmail)
+        {
+            string connectionString = GetConnectionString();
+            try
+            {
+                using (var connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    MySqlTransaction transaction = connection.BeginTransaction();
+
+                    try
+                    {
+                        // Get login_id associated with the user
+                        string getLoginIdQuery = "SELECT login_id FROM user WHERE user_id = @UserId";
+                        MySqlCommand getLoginIdCmd = new MySqlCommand(getLoginIdQuery, connection, transaction);
+                        getLoginIdCmd.Parameters.AddWithValue("@UserId", userId);
+                        int loginId = Convert.ToInt32(getLoginIdCmd.ExecuteScalar());
+
+                        // Update email in the user table
+                        string updateUserQuery = "UPDATE user SET el_pastas = @NewEmail WHERE user_id = @UserId";
+                        MySqlCommand updateUserCmd = new MySqlCommand(updateUserQuery, connection, transaction);
+                        updateUserCmd.Parameters.AddWithValue("@NewEmail", newEmail);
+                        updateUserCmd.Parameters.AddWithValue("@UserId", userId);
+                        updateUserCmd.ExecuteNonQuery();
+
+                        // Update email in the login table
+                        string updateLoginQuery = "UPDATE login SET email_address = @NewEmail WHERE login_id = @LoginId";
+                        MySqlCommand updateLoginCmd = new MySqlCommand(updateLoginQuery, connection, transaction);
+                        updateLoginCmd.Parameters.AddWithValue("@NewEmail", newEmail);
+                        updateLoginCmd.Parameters.AddWithValue("@LoginId", loginId);
+                        updateLoginCmd.ExecuteNonQuery();
+
+                        // Commit the transaction
+                        transaction.Commit();
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        // Rollback the transaction if there is an error
+                        transaction.Rollback();
+                        MessageBox.Show("Failed to update user email: " + ex.Message, "Error", MessageBoxButtons.OK);
+                        return false;
+                    }
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Database connection failed: " + ex.Message, "Error", MessageBoxButtons.OK);
+                return false;
+            }
+        }
+
         public static bool UpdateUser(RegularUser user)
         {
             string connectionString = GetConnectionString();
