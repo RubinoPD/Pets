@@ -27,6 +27,18 @@ namespace PETS.UserPages
         private void saveButton_Click(object sender, EventArgs e)
         {
 
+            int supervisorId = Convert.ToInt32(supervisorIdTextBox.Text);
+            string newEmail = emailTextBox.Text;
+
+            bool emailUpdated = DBConnection.UpdateSupervisorEmail(supervisorId, newEmail);
+            if (emailUpdated)
+            {
+                MessageBox.Show("Email updated successfully!", "Success", MessageBoxButtons.OK);
+            } else
+            {
+                MessageBox.Show("Email failed to update!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
             string phoneNumber = _supervisor.PhoneNumber.ToString();
             // Update supervisor info
             _supervisor.FirstName = nameTextBox.Text;

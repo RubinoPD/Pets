@@ -261,6 +261,58 @@ namespace PETS.Classes
 
         // Update methods
 
+        public static bool UpdateSupervisorEmail(int supervisorId, string newEmail)
+        {
+            string connectionString = GetConnectionString();
+            try
+            {
+                using (var connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    MySqlTransaction transaction = connection.BeginTransaction();
+
+                    try
+                    {
+                        // Get login_id associated with the supervisor
+                        string getLoginIdQuery = "SELECT login_id FROM supervisor WHERE supervisor_id = @SupervisorId";
+                        MySqlCommand getLoginIdCmd = new MySqlCommand(getLoginIdQuery, connection, transaction);
+                        getLoginIdCmd.Parameters.AddWithValue("@SupervisorId", supervisorId);
+                        int loginId = Convert.ToInt32(getLoginIdCmd.ExecuteScalar());
+
+                        // Update email in the supervisor table
+                        string updateSupervisorQuery = "UPDATE supervisor SET email = @NewEmail WHERE supervisor_id = @SupervisorId";
+                        MySqlCommand updateSupervisorCmd = new MySqlCommand(updateSupervisorQuery, connection, transaction);
+                        updateSupervisorCmd.Parameters.AddWithValue("@NewEmail", newEmail);
+                        updateSupervisorCmd.Parameters.AddWithValue("@SupervisorId", supervisorId);
+                        updateSupervisorCmd.ExecuteNonQuery();
+
+                        // Update email in the login table
+                        string updateLoginQuery = "UPDATE login SET email_address = @NewEmail WHERE login_id = @LoginId";
+                        MySqlCommand updateLoginCmd = new MySqlCommand(updateLoginQuery, connection, transaction);
+                        updateLoginCmd.Parameters.AddWithValue("@NewEmail", newEmail);
+                        updateLoginCmd.Parameters.AddWithValue("@LoginId", loginId);
+                        updateLoginCmd.ExecuteNonQuery();
+
+                        // Commit the transaction
+                        transaction.Commit();
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        // Rollback the transaction if there is an error
+                        transaction.Rollback();
+                        MessageBox.Show("Failed to update supervisor email: " + ex.Message, "Error", MessageBoxButtons.OK);
+                        return false;
+                    }
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Database connection failed: " + ex.Message, "Error", MessageBoxButtons.OK);
+                return false;
+            }
+        }
+
         public static bool UpdateUserEmail(int userId, string newEmail)
         {
             string connectionString = GetConnectionString();
